@@ -27,27 +27,102 @@ public class BitCoin {
 	public void generateData() {
 		//Generate BTCUSD Data
 		// define the range 
-		int upper_max = 5000; 
-        int upper_min = 4000;
-        int lower_max = 3000;
-		int lower_min = 2000; 
-        int upper_range = upper_max - upper_min + 1;
-        int lower_range = lower_max - lower_min + 1;
+		int btcusd_upper_max = 5000; 
+        int btcusd_upper_min = 4000;
+        int btcusd_lower_max = 3000;
+		int btcusd_lower_min = 2000; 
+        int btcusd_upper_range = btcusd_upper_max - btcusd_upper_min + 1;
+        int btcusd_lower_range = btcusd_lower_max - btcusd_lower_min + 1;
         
-        int bitusd_max = (int)(Math.random() * upper_range) + upper_min;
-        int bitusd_min = (int)(Math.random() * lower_range) + lower_min;
+        int bitusd_max = (int)(Math.random() * btcusd_upper_range) + btcusd_upper_min;
+        int bitusd_min = (int)(Math.random() * btcusd_lower_range) + btcusd_lower_min;
         int bitusd_range = bitusd_max - bitusd_min + 1;
         
-        // generate random numbers within 1 to 10 
+        // generate data for every hour for the past year 
         for (int i = 0; i < 87600; i++) { 
-        	double rand = (double)(Math.random() * bitusd_range) + bitusd_min; 
-            this.btcusdPrices.add(rand);
+        	double btcusd_rand = (double)(Math.random() * bitusd_range) + bitusd_min; 
+            this.btcusdPrices.add(btcusd_rand);
              
             // Output is different everytime this code is executed 
-            System.out.println("$" + String.format("%4.2f", rand)); 
+            System.out.println("$" + String.format("%4.2f", btcusd_rand)); 
         }
         
         this.currentBTCUSDPrice = this.btcusdPrices.get(this.btcusdPrices.size()-1);
+        
+        //Generate BITEUR Data
+		// define the range 
+        //Exchange rate from BTCUSD to BTCEUR is roughly 89%.
+        double usd2eurRate = 0.89;
+		int btceur_upper_max = (int)(usd2eurRate * btcusd_upper_max); 
+        int btceur_upper_min = (int)(usd2eurRate * btcusd_upper_min);
+        int btceur_lower_max = (int)(usd2eurRate * btcusd_lower_max);
+		int btceur_lower_min = (int)(usd2eurRate * btcusd_lower_min); 
+        int btceur_upper_range = btceur_upper_max - btceur_upper_min + 1;
+        int btceur_lower_range = btceur_lower_max - btceur_lower_min + 1;
+        
+        int biteur_max = (int)(Math.random() * btceur_upper_range) + btceur_upper_min;
+        int biteur_min = (int)(Math.random() * btceur_lower_range) + btceur_lower_min;
+        int biteur_range = biteur_max - biteur_min + 1;
+        
+        // generate data for every hour for the past year 
+        for (int i = 0; i < 87600; i++) { 
+        	double btceur_rand = (double)(Math.random() * biteur_range) + biteur_min; 
+            this.btceurPrices.add(btceur_rand);
+             
+            // Output is different everytime this code is executed 
+            System.out.println("$" + String.format("%4.2f", btceur_rand)); 
+        }
+        
+        this.currentBTCEURPrice = this.btceurPrices.get(this.btceurPrices.size()-1);
+        
+		//Generate ETHUSD Data
+		// define the range 
+		int ethusd_upper_max = 500; 
+        int ethusd_upper_min = 400;
+        int ethusd_lower_max = 150;
+		int ethusd_lower_min = 100; 
+        int ethusd_upper_range = ethusd_upper_max - ethusd_upper_min + 1;
+        int ethusd_lower_range = ethusd_lower_max - ethusd_lower_min + 1;
+        
+        int ethusd_max = (int)(Math.random() * ethusd_upper_range) + ethusd_upper_min;
+        int ethusd_min = (int)(Math.random() * ethusd_lower_range) + ethusd_lower_min;
+        int ethusd_range = ethusd_max - ethusd_min + 1;
+        
+        // generate data for every hour for the past year 
+        for (int i = 0; i < 87600; i++) { 
+        	double ethusd_rand = (double)(Math.random() * ethusd_range) + ethusd_min; 
+            this.ethusdPrices.add(ethusd_rand);
+             
+            // Output is different everytime this code is executed 
+            System.out.println("$" + String.format("%4.2f", ethusd_rand)); 
+        }
+        
+        this.currentETHUSDPrice = this.ethusdPrices.get(this.ethusdPrices.size()-1);
+        
+        //Generate BITEUR Data
+		// define the range 
+        //Exchange rate from ETHUSD to ETHEUR is roughly 89%.
+		int etheur_upper_max = (int)(usd2eurRate * ethusd_upper_max); 
+        int etheur_upper_min = (int)(usd2eurRate * ethusd_upper_min);
+        int etheur_lower_max = (int)(usd2eurRate * ethusd_lower_max);
+		int etheur_lower_min = (int)(usd2eurRate * ethusd_lower_min); 
+        int etheur_upper_range = etheur_upper_max - etheur_upper_min + 1;
+        int etheur_lower_range = etheur_lower_max - etheur_lower_min + 1;
+        
+        int etheur_max = (int)(Math.random() * etheur_upper_range) + etheur_upper_min;
+        int etheur_min = (int)(Math.random() * etheur_lower_range) + etheur_lower_min;
+        int etheur_range = etheur_max - etheur_min + 1;
+        
+        // generate data for every hour for the past year 
+        for (int i = 0; i < 87600; i++) { 
+        	double etheur_rand = (double)(Math.random() * etheur_range) + etheur_min; 
+            this.etheurPrices.add(etheur_rand);
+             
+            // Output is different everytime this code is executed 
+            System.out.println("$" + String.format("%4.2f", etheur_rand)); 
+        }
+        
+        this.currentETHEURPrice = this.etheurPrices.get(this.etheurPrices.size()-1);
 	}
 
 	public double getCurrentBTCUSDPrice() {

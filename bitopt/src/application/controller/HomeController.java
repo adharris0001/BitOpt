@@ -41,7 +41,11 @@ public class HomeController implements EventHandler<ActionEvent>, Initializable 
 	
 	@Override
 	public void handle(ActionEvent arg0) {
-		System.out.println("Current BITUSD: $" + String.format("%4.2f", LoginController.newData.getCurrentPrice()));
+		System.out.println("Current BITUSD: $" + String.format("%4.2f", LoginController.newData.getCurrentBTCUSDPrice()));
+		System.out.println("Current BITEUR: $" + String.format("%4.2f", LoginController.newData.getCurrentBTCEURPrice()));
+		System.out.println("Current ETHUSD: $" + String.format("%4.2f", LoginController.newData.getCurrentETHUSDPrice()));
+		System.out.println("Current ETHEUR: $" + String.format("%4.2f", LoginController.newData.getCurrentETHEURPrice()));
+
 	}
 	
 	public void homeHandle(ActionEvent arg0){
