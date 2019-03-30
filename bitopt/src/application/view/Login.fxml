@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginController">
+   <children>
+      <AnchorPane fx:id="panel" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="50.0">
+                     <image>
+                        <Image url="@../../../../../Documents/bitcoin.jpg" />
+                     </image>
+                  </ImageView>
+               </children></HBox>
+            <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+              <menus>
+                <Menu mnemonicParsing="false" style="-fx-text-fill: #ffffff;">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                     <graphic>
+                        <Label text="Home" textFill="WHITE" />
+                     </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                     <graphic>
+                        <Label text="System Setup" textFill="WHITE" />
+                     </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                     <graphic>
+                        <Label text="Bitcoin" textFill="WHITE" />
+                     </graphic>
+                </Menu>
+                  <Menu mnemonicParsing="false">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                     <graphic>
+                        <Label text="About Us" textFill="WHITE" />
+                     </graphic>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <Label layoutX="300.0" layoutY="360.0" prefHeight="25.0" prefWidth="200.0" text="Enter Password" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="textField" layoutX="300.0" layoutY="300.0" prefWidth="200.0" />
+      <PasswordField fx:id="passwordField" layoutX="300.0" layoutY="400.0" prefWidth="200.0" />
+      <Label layoutX="300.0" layoutY="265.0" prefHeight="25.0" prefWidth="200.0" text="Enter Username:" textFill="WHITE" />
+      <Button layoutX="373.0" layoutY="435.0" mnemonicParsing="false" onAction="#handle" text="Login" />
+      <Label layoutX="323.0" layoutY="500.0" text="Don't have an account?" textFill="WHITE" />
+      <Button layoutX="365.0" layoutY="525.0" mnemonicParsing="false" onAction="#signUpHandle" prefWidth="70.0" text="Sign Up" />
+      <Label fx:id="errorLabel" layoutX="265.0" layoutY="575.0" maxWidth="275.0" prefWidth="270.0">
+         <font>
+            <Font name="FreeMono" size="14.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

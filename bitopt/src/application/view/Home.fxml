@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.HomeController">
+   <children>
+      <AnchorPane fx:id="panel" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Documents/bitcoin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+               <menus>
+                  <Menu mnemonicParsing="false" onAction="#homeHandle" style="-fx-text-fill: #ffffff;">
+                     <graphic>
+                        <Label text="Home" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="System Setup" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="Bitcoin" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="About Us" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="343.0" layoutY="400.0" mnemonicParsing="false" onAction="#handle" text="Generate Data" />
+      <Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#homeHandle" text="Log Out" />
+   </children>
+</AnchorPane>
