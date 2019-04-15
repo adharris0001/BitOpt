@@ -59,5 +59,17 @@ public class HomeController implements EventHandler<ActionEvent>, Initializable 
 			e.printStackTrace();
 		}
 	}
+	//Brings scene to Chart.FXML. Controller = ChartController.java
+	public void chartHandle(ActionEvent arg0){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

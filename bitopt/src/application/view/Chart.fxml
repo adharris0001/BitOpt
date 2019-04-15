@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.controller.ChartController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <LineChart id="LineChart" fx:id="lineChart" layoutX="21.0" layoutY="178.0" legendVisible="true" prefHeight="533.0" prefWidth="758.0" title="LINE CHART">
+      <xAxis>
+        <CategoryAxis animated="false" side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis side="LEFT" />
+      </yAxis>
+    </LineChart>
+    <MenuBar id="menu" layoutX="0.0" layoutY="120.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+      <menus>
+        <Menu mnemonicParsing="false" onAction="#homeHandle" style="-fx-text-fill: #ffffff;">
+          <graphic>
+            <Label text="Home" textFill="WHITE" />
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false">
+          <graphic>
+            <Label text="System Setup" textFill="WHITE" />
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" style="-fx-text-fill: #ffffff;">
+          <graphic>
+            <Label text="Charts" textFill="WHITE" />
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false">
+          <graphic>
+            <Label text="Bitcoin" textFill="WHITE" />
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false">
+          <graphic>
+            <Label text="About Us" textFill="WHITE" />
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Label layoutX="50.0" layoutY="32.0" prefHeight="67.0" prefWidth="237.0" text="Chart">
+      <font>
+        <Font size="50.0" />
+      </font>
+    </Label>
+    <Button layoutX="372.0" layoutY="731.0" mnemonicParsing="false" onAction="#generateChart" text="load chart" />
+  </children>
+</AnchorPane>
