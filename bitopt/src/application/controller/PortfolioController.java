@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import application.Main;
 import application.model.BitCoin;
 import application.model.Portfolio;
+import application.model.Transaction;
 import application.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +18,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -90,13 +94,16 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	private GridPane bottomGridPane = new GridPane();
 	
 	@FXML
-	private ChoiceBox accountSelect = new ChoiceBox();
+	private ComboBox<String> accountSelect = new ComboBox<String>();
 	
 	@FXML
-	private ChoiceBox coinTransactionChoice = new ChoiceBox();
+	private ComboBox<String> coinTransactionChoice = new ComboBox<String>();
 	
 	@FXML
 	private RadioButton coinTransactionRadio = new RadioButton();
+	
+    @FXML
+    private TextField transactionChoiceAmount;
 	
     @FXML
     private ListView<String> listView;
@@ -130,6 +137,23 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		topCryptoCurrencyLabel.setText("BitCoin USD");
 		topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+		
+		for(String coin : portfolio.getAccountInfo().keySet()){
+			
+			if(coin.equals("bTCUSD")){
+				
+				Transaction recent = portfolio.recentTransaction(coin);
+				availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+				lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+				
+				for(Transaction transaction : portfolio.getAccountInfo().get(coin)){
+					
+					items.add(transaction.toString());
+				}		
+			}
+		}
+		
+		listView.getItems().addAll(items);
 	}
 
 	@Override
@@ -138,6 +162,89 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 	}
 	
+	public void handleAccountSelect(ActionEvent event){
+
+		String selectedAccount = accountSelect.getValue();
+		//System.out.println(selectedCpu);
+		if(selectedAccount.equals("bTCUSD")) {
+			Transaction recent = portfolio.recentTransaction(selectedAccount);
+			//update top label
+			topCryptoCurrencyLabel.setText("BitCoin USD");
+			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+			//update balance labels
+			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+				
+				items.add(transaction.toString());
+			}		
+		}else if(selectedAccount.equals("bTCEUR")) {
+			Transaction recent = portfolio.recentTransaction(selectedAccount);
+			//update top label
+			topCryptoCurrencyLabel.setText("BitCoin EUR");
+			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+			//update balance labels
+			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+				
+				items.add(transaction.toString());
+			}		
+		}else if(selectedAccount.equals("eTHUSD")) {
+			Transaction recent = portfolio.recentTransaction(selectedAccount);
+			//update top label
+			topCryptoCurrencyLabel.setText("Ethereum USD");
+			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+			//update balance labels
+			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+				
+				items.add(transaction.toString());
+			}		
+		}else {
+			Transaction recent = portfolio.recentTransaction(selectedAccount);
+			//update top label
+			topCryptoCurrencyLabel.setText("Ethereum EUR");
+			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+			//update balance labels
+			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+				
+				items.add(transaction.toString());
+			}		
+		}
+	}
+	
+	public void handleTransactionChoice(ActionEvent event){
+		
+		String selectedTransaction = coinTransactionChoice.getValue();
+		double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
+		//System.out.println(selectedCpu);
+		if(selectedTransaction.equals("addCoin")) {	
+			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
+			//add or subtract to portfolio transaction
+			portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
+			//last balance is now current balance and current balance is new balance
+			lastBalanceAmountLabel.setText(portfolio.getAccountInfo());
+			//create a new transaction for the specific currency
+			//add it to the list of transactions
+			//save it back to the file
+			//update list view
+		}else {
+			Image image = new Image("File:image/intelI3.png");
+			ImageView imageview = new ImageView();
+			imageview.setImage(image);
+			imageview.setFitHeight(175);
+			imageview.setFitWidth(150);
+			gridPane.add(imageview, 0, 0);
+		}
+	}
 	public void errorLabelMessage(String message) {
 		
 		String errorResponse = message;
