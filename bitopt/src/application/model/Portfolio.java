@@ -1,5 +1,5 @@
 /**
- * @author Anthony D. Harris xxg795
+  * @author Anthony D. Harris xxg795
  *
  */
 package application.model;
@@ -189,6 +189,22 @@ public class Portfolio {
 		
 		return true;
 	}
+	
+	public Transaction recentTransaction(String coin) {
+		
+		int lastIndex = 0;
+		
+		for(String name : this.accountInfo.keySet()) {
+			
+			if(name.equals(coin)) {
+				
+				lastIndex = this.accountInfo.get(name).size() - 1;
+				return this.accountInfo.get(name).get(lastIndex);	
+			}
+		}
+		
+		return null;
+	}
 
 	public String getName() {
 		return name;
@@ -205,5 +221,4 @@ public class Portfolio {
 	public void setAccountInfo(Map<String, ArrayList<Transaction>> accountInfo) {
 		this.accountInfo = accountInfo;
 	}
-
 }

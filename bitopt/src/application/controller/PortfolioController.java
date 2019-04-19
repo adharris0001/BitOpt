@@ -253,4 +253,65 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		errorLabel.setTextFill(Color.RED);
 	}
 	
+	public void homeHandle(ActionEvent event){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void systemHandle(ActionEvent event){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void portfolioHandle(ActionEvent event){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Brings scene to Chart.FXML. Controller = ChartController.java
+	public void chartHandle(ActionEvent event){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Brings scene to Chart.FXML. Controller = ChartController.java
+	public void aboutHandle(ActionEvent event){
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
