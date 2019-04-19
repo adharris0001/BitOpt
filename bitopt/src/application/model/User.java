@@ -31,6 +31,7 @@ public class User {
 				if(attemptName.equals(userName) && attemptPassword.equals(userPassword)) {
 					user = new User(attemptName);
 					System.out.println("Setting new user");
+					break;
 				}
 				else {
 					System.out.println("Username or Password is incorrect.");
