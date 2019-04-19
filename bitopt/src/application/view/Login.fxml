@@ -14,11 +14,7 @@
          <children>
             <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
                <children>
-                  <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="50.0">
-                     <image>
-                        <Image url="@../../../../../Documents/bitcoin.jpg" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="50.0" />
                </children></HBox>
             <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
                <font>

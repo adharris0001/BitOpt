@@ -9,36 +9,27 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
-public class HomeController implements EventHandler<ActionEvent>, Initializable {
+public class SystemController implements EventHandler<ActionEvent>, Initializable{
+
+	@FXML
+	ComboBox<String> cpuComboBox = new ComboBox<String>();
 	
 	@FXML
-	HBox hbox = new HBox();
-	
-	@FXML
-	AnchorPane panel = new AnchorPane();
-	
-	@FXML
-	Label label = new Label();
+	GridPane gridPane = new GridPane();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		panel.setStyle("-fx-background-color: #8c8c8c;");
-		hbox.setStyle("-fx-background-color: #000000;");
-		label.setText("Welcome to BitOpt");
-		label.setTextFill(Color.WHITE);
-		label.setFont(Font.font("Cambria", 34));
-		label.setAlignment(Pos.CENTER);
+		// TODO Auto-generated method stub
+		cpuComboBox.getItems().addAll("Intel I9","Intel I7","Intel I5","Intel I3");	
 	}
-	
+
 	@Override
 	public void handle(ActionEvent event) {
 		try {
@@ -49,6 +40,40 @@ public class HomeController implements EventHandler<ActionEvent>, Initializable 
 
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void cpuHandle(ActionEvent event) {
+		String selectedCpu = cpuComboBox.getValue();
+		System.out.println(selectedCpu);
+		if(selectedCpu.equals("Intel I9")) {
+			Image image = new Image("File:image/intelI9.png");
+			ImageView imageview = new ImageView();
+			imageview.setImage(image);
+			imageview.setFitHeight(175);
+			imageview.setFitWidth(150);
+			gridPane.add(imageview, 0, 0);
+		}else if(selectedCpu.equals("Intel I7")) {
+			Image image = new Image("File:image/intelI7.png");
+			ImageView imageview = new ImageView();
+			imageview.setImage(image);
+			imageview.setFitHeight(175);
+			imageview.setFitWidth(150);
+			gridPane.add(imageview, 0, 0);
+		}else if(selectedCpu.equals("Intel I5")) {
+			Image image = new Image("File:image/intelI5.png");
+			ImageView imageview = new ImageView();
+			imageview.setImage(image);
+			imageview.setFitHeight(175);
+			imageview.setFitWidth(150);
+			gridPane.add(imageview, 0, 0);
+		}else {
+			Image image = new Image("File:image/intelI3.png");
+			ImageView imageview = new ImageView();
+			imageview.setImage(image);
+			imageview.setFitHeight(175);
+			imageview.setFitWidth(150);
+			gridPane.add(imageview, 0, 0);
 		}
 	}
 	
