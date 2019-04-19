@@ -35,9 +35,6 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		panel.setStyle("-fx-background-color: #8c8c8c;");
 		hbox.setStyle("-fx-background-color: #000000;");
 	}
-<<<<<<< HEAD
-	public void homeHandle(ActionEvent event){
-=======
 	
 	BitCoin bitCoin = new BitCoin();
 	
@@ -80,7 +77,6 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	
 	//brings user back home
 	public void homeHandle(ActionEvent arg0){
->>>>>>> branch 'master' of https://github.com/UTSA-CS-3443/BitOpt.git
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
 			System.out.println("Loading Personnel Scene");			
