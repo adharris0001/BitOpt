@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SystemController">
+   <children>
+      <AnchorPane fx:id="panel" layoutX="10.0" layoutY="10.0" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Documents/bitcoin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+               <menus>
+                  <Menu mnemonicParsing="false" onAction="#handle" style="-fx-text-fill: #ffffff;">
+                     <graphic>
+                        <Label text="Home" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#homeHandle" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="System Setup" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
+                     <graphic>
+                        <Label text="Charts" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="Bitcoin" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="About" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="About Us" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cpuComboBox" layoutX="74.0" layoutY="147.0" onAction="#cpuHandle" prefWidth="150.0" promptText="Choose CPU" />
+            <Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Logout" />
+            <GridPane fx:id="gridPane" layoutX="300.0" layoutY="125.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="155.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
