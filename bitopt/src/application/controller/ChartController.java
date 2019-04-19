@@ -17,9 +17,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-
+//Tommy Herz
 public class ChartController implements EventHandler<ActionEvent>, Initializable {
-	//handle currently does nothing
+	//handle logs the user out
 	
 	@FXML
 	HBox hbox = new HBox();
@@ -45,7 +45,8 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	ArrayList<Double> ethusd = LoginController.newData.getEthusdPrices();
 	
 	
-	//Suppress warning is needed because eclipse is bad
+	//Suppress warning is needed because eclipse is bad 
+	//Main method to generate LineChart
 	@SuppressWarnings("unchecked")
 	public void generateChart(ActionEvent e) {
 		//title
@@ -53,26 +54,34 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	
 		//each time you generate chart, clear chart first
 		lineChart.getData().clear();
-		//makes the series that linechart can read
-		XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-		XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
-		XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
-		XYChart.Series<String, Number> series4 = new XYChart.Series<String, Number>();
+	
 		
-		//adds data from ArrayList to data that the linechart api can read. goes from 0 to 48. 48 values called.
-		for(int i =0; i<49; i++) {
-			series1.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), btcusd.get(i)));
-			series2.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), btceur.get(i)));
-			series3.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), etheur.get(i)));
-			series4.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), ethusd.get(i)));
-		}
-		//Sets name for each line
-		series1.setName("BitCoin USD");
-		series2.setName("BitCoin EUR");
-		series3.setName("Etherium EUR");
-		series4.setName("Etherium USD");
-		
-		lineChart.getData().addAll(series1,series2,series3,series4);	
+		if(btceur==null||btcusd==null||etheur==null||ethusd==null){
+			System.out.println("Error: No data found.");
+			
+		} else {
+			//makes the series that line chart can read
+			XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
+			XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
+			XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
+			XYChart.Series<String, Number> series4 = new XYChart.Series<String, Number>();
+			
+			//adds data from ArrayList to data that the line chart API can read. goes from 0 to 48. 48 values called.
+			for(int i =0; i<49; i++) {
+				series1.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), btcusd.get(i)));
+				series2.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), btceur.get(i)));
+				series3.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), etheur.get(i)));
+				series4.getData().add(new XYChart.Data<String, Number>(Integer.toString(i), ethusd.get(i)));
+			}
+			//Sets name for each line on chart
+			series1.setName("BitCoin USD");
+			series2.setName("BitCoin EUR");
+			series3.setName("Etherium EUR");
+			series4.setName("Etherium USD");
+			
+			//adds all lines
+			lineChart.getData().addAll(series1,series2,series3,series4);
+			}
 	}
 	
 	//brings user back home
@@ -88,6 +97,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		}
 	}
 
+	//Brings scene to System.fxml Controller = SystemController.java
 	public void systemHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
@@ -100,6 +110,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		}
 	}
 
+	//Brings scene to Portfolio.fxml Controller = PortfolioController.java
 	public void portfolioHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
@@ -125,10 +136,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		}
 	}
 	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	//Brings scene to AboutUs.FXML. Controller = AboutUsController.java
 	public void aboutHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
@@ -138,10 +149,16 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		}
 	}
 
-
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
