@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
@@ -7,15 +8,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.controller.ChartController">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ChartController">
   <!-- TODO Add Nodes -->
   <children>
+      <HBox fx:id="hbox" prefHeight="120.0" prefWidth="810.0">
+         <children>
+            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Documents/bitcoin.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
     <LineChart id="LineChart" fx:id="lineChart" layoutX="21.0" layoutY="178.0" legendVisible="true" prefHeight="533.0" prefWidth="758.0" title="LINE CHART">
       <xAxis>
-        <CategoryAxis animated="false" side="BOTTOM" />
+        <CategoryAxis animated="false" label="Time (Hours)" side="BOTTOM" />
       </xAxis>
       <yAxis>
-        <NumberAxis side="LEFT" />
+        <NumberAxis label="Value in USD/EUR" side="LEFT" />
       </yAxis>
     </LineChart>
     <MenuBar id="menu" layoutX="0.0" layoutY="120.0" prefWidth="800.0" style="-fx-background-color: #000000;">
@@ -62,7 +72,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label layoutX="50.0" layoutY="32.0" prefHeight="67.0" prefWidth="237.0" text="Chart">
+    <Label layoutX="50.0" layoutY="32.0" prefHeight="73.0" prefWidth="493.0" text="BitOpt Line Chart" textFill="WHITE">
       <font>
         <Font size="50.0" />
       </font>
