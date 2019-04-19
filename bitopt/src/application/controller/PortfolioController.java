@@ -125,6 +125,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 
 			e1.printStackTrace();
 		}
+		
+		//setting default labels
+		
+		topCryptoCurrencyLabel.setText("BitCoin USD");
+		topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 	}
 
 	@Override
