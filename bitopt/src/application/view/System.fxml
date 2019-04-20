@@ -51,7 +51,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false">
                      <graphic>
-                        <Label text="Bitcoin" textFill="WHITE" />
+                        <Label text="Portfolio" textFill="WHITE" />
                      </graphic>
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="About" />

@@ -85,6 +85,7 @@ public class LoginController implements EventHandler<ActionEvent>, Initializable
 				System.out.println("Loading Personnel Scene");			
 				Main.stage.setScene(new Scene(root, 800, 800));
 				Main.stage.show();
+				
 			}
 
 		} catch(Exception e) {
