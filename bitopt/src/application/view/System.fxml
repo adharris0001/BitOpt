@@ -38,7 +38,7 @@
                         <Label text="System Setup" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="New System" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
@@ -46,7 +46,7 @@
                         <Label text="Charts" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="History" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false">
