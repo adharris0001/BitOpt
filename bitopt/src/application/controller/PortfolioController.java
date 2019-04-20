@@ -231,20 +231,42 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			//add or subtract to portfolio transaction
 			portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
 			//last balance is now current balance and current balance is new balance
-			lastBalanceAmountLabel.setText(portfolio.getAccountInfo());
-			//create a new transaction for the specific currency
-			//add it to the list of transactions
+			lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			Transaction newTransaction = portfolio.recentTransaction(accountSelect.getValue());
+			availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
 			//save it back to the file
+			try {
+				portfolio.save(accountSelect.getValue());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(accountChoiceLabel)){
+				
+				items.add(transaction.toString());
+			}		
 		}else {
-			Image image = new Image("File:image/intelI3.png");
-			ImageView imageview = new ImageView();
-			imageview.setImage(image);
-			imageview.setFitHeight(175);
-			imageview.setFitWidth(150);
-			gridPane.add(imageview, 0, 0);
+			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
+			//add or subtract to portfolio transaction
+			portfolio.removeCoin(accountSelect.getValue(), selectedTransactionAmount);
+			//last balance is now current balance and current balance is new balance
+			lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			Transaction newTransaction = portfolio.recentTransaction(accountSelect.getValue());
+			availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
+			//save it back to the file
+			try {
+				portfolio.save(accountSelect.getValue());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//update list view
+			for(Transaction transaction : portfolio.getAccountInfo().get(accountChoiceLabel)){
+				
+				items.add(transaction.toString());
+			}		
 		}
 	}
+	
 	public void errorLabelMessage(String message) {
 		
 		String errorResponse = message;
