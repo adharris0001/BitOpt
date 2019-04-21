@@ -52,7 +52,7 @@ public class Portfolio {
 		//We are only using four different currencies. Each one will be keys to the values in the map
 		
 		ArrayList<String> cryptoCurrencyNames = new ArrayList<String>();
-		cryptoCurrencyNames.addAll(Arrays.asList("bTCUSD", "bTCEURO", "eTHUSD", "eTHEUR"));
+		cryptoCurrencyNames.addAll(Arrays.asList("bTCUSD", "bTCEUR", "eTHUSD", "eTHEUR"));
 //		cryptoCurrencyNames.add("bTCUSD");
 //		cryptoCurrencyNames.add("bTCEUR");
 //		cryptoCurrencyNames.add("eTHUSD");
@@ -204,6 +204,8 @@ public class Portfolio {
 			if(name.equals(coin)) {
 				
 				lastIndex = this.accountInfo.get(name).size() - 1;
+				System.out.println("This is the last index value" + lastIndex);
+				System.out.println(accountInfo.get(name).get(lastIndex).toString());
 				return this.accountInfo.get(name).get(lastIndex);	
 			}
 		}
