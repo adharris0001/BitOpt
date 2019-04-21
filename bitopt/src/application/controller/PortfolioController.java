@@ -125,7 +125,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		try {
 			
-			portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+			//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+			portfolio.loadTransactions("bTCUSD", "portfolioData/bTCUSD.csv" );
 		} 
 		
 		catch (IOException e1) {
