@@ -348,7 +348,7 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	//Brings scene to Chart.FXML. Controller = ChartController.java
 	public void aboutHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();

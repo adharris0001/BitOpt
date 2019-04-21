@@ -15,7 +15,7 @@
          <children>
             <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Documents/bitcoin.jpg" />
+                  <Image url="@../../../../images/bitcoin.png" />
                </image>
             </ImageView>
           <Label prefHeight="73.0" prefWidth="644.0" text="BitOpt Line Chart" textFill="WHITE">
