@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.Main;
-import application.model.BitCoin;
+//import application.model.BitCoin;
 import application.model.Portfolio;
 import application.model.Transaction;
-import application.model.User;
+//import application.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,15 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
+//import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
+//import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -120,12 +120,17 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		label.setTextFill(Color.WHITE);
 		label.setFont(Font.font("Cambria", 34));
 		label.setAlignment(Pos.CENTER);
+		accountSelect.getItems().addAll("bTCUSD","bTCEUR","eTHUSD","eTHEUR");
+		coinTransactionChoice.getItems().addAll("addCoin","removeCoin");
+		//cpuComboBox.getItems().addAll("Intel I9","Intel I7","Intel I5","Intel I3");	
+		//gpuComboBox.getItems().addAll("GTX 1080","GTX 1070","GTX 1060","GTX 1050");
 		
-		String userSelection = "";
+//		String userSelection = "";
 		
 		try {
 			
-			portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+			//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+			portfolio.loadTransactions("bTCUSD", "portfolioData/bTCUSD.csv" );
 		} 
 		
 		catch (IOException e1) {
@@ -157,9 +162,16 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	}
 
 	@Override
-	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void handle(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void handleAccountSelect(ActionEvent event){
@@ -167,6 +179,18 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		String selectedAccount = accountSelect.getValue();
 		//System.out.println(selectedCpu);
 		if(selectedAccount.equals("bTCUSD")) {
+			
+			try {
+				
+				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+				portfolio.loadTransactions("bTCUSD", "portfolioData/bTCUSD.csv" );
+			} 
+			
+			catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
+			
 			Transaction recent = portfolio.recentTransaction(selectedAccount);
 			//update top label
 			topCryptoCurrencyLabel.setText("BitCoin USD");
@@ -180,11 +204,29 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				items.add(transaction.toString());
 			}		
 		}else if(selectedAccount.equals("bTCEUR")) {
-			Transaction recent = portfolio.recentTransaction(selectedAccount);
+			
+			try {
+				
+				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+				portfolio.loadTransactions("bTCEUR", "portfolioData/bTCEUR.csv" );
+				//System.out.println("read in bTCEUR");
+			} 
+			
+			catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
+			//Transaction recent = new Transaction("", "", 0.0, 0.0, 0.0);
+			//System.out.println(recent.toString());
+			//Transaction recent = portfolio.recentTransaction(selectedAccount);
+			Transaction recent = portfolio.recentTransaction("bTCEUR");
+
+			System.out.println(recent.toString());
 			//update top label
 			topCryptoCurrencyLabel.setText("BitCoin EUR");
 			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 			//update balance labels
+			
 			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
 			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
 			//update list view
@@ -193,6 +235,17 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				items.add(transaction.toString());
 			}		
 		}else if(selectedAccount.equals("eTHUSD")) {
+			
+			try {
+				
+				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+				portfolio.loadTransactions("eTHUSD", "portfolioData/eTHUSD.csv" );
+			} 
+			
+			catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
 			Transaction recent = portfolio.recentTransaction(selectedAccount);
 			//update top label
 			topCryptoCurrencyLabel.setText("Ethereum USD");
@@ -206,6 +259,17 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				items.add(transaction.toString());
 			}		
 		}else {
+			
+			try {
+				
+				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
+				portfolio.loadTransactions("eTHEUR", "portfolioData/eTHEUR.csv" );
+			} 
+			
+			catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
 			Transaction recent = portfolio.recentTransaction(selectedAccount);
 			//update top label
 			topCryptoCurrencyLabel.setText("Ethereum EUR");

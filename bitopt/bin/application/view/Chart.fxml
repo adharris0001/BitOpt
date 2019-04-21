@@ -49,7 +49,7 @@
                   <Label text="System Setup" textFill="WHITE" />
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
@@ -57,7 +57,7 @@
                   <Label text="Charts" textFill="WHITE" />
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false">
@@ -65,7 +65,7 @@
                   <Label text="Portfolio" textFill="WHITE" />
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false">
