@@ -21,7 +21,7 @@ public class Transaction {
 		
 		String ret = "";
 		
-		ret = this.date + " " + this.transactionType + " " + this.transactionChange + " " + this.currentBalance + " " + this.previousBalance;
+		ret = this.date + "\t\t\t" + this.transactionType + "\t\t\t" + this.transactionChange + "\t\t\t\t" +  this.currentBalance;
 		
 		return ret;
 	}
