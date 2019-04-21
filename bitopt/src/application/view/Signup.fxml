@@ -20,42 +20,6 @@
                   </ImageView>
                </children>
             </HBox>
-            <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
-               <menus>
-                  <Menu mnemonicParsing="false" style="-fx-text-fill: #ffffff;">
-                     <graphic>
-                        <Label text="Home" textFill="WHITE" />
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false">
-                     <graphic>
-                        <Label text="System Setup" textFill="WHITE" />
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false">
-                     <graphic>
-                        <Label text="Bitcoin" textFill="WHITE" />
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false">
-                     <graphic>
-                        <Label text="About Us" textFill="WHITE" />
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
             <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
                <font>
                   <Font size="34.0" />

@@ -25,20 +25,12 @@
             </HBox>
             <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
                <menus>
-                  <Menu mnemonicParsing="false" onAction="#handle" style="-fx-text-fill: #ffffff;">
-                     <graphic>
-                        <Label text="Home" textFill="WHITE" />
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#homeHandle" text="Close" />
-                     </items>
-                  </Menu>
                   <Menu mnemonicParsing="false">
                      <graphic>
                         <Label text="System Setup" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="New System" />
+                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
@@ -46,7 +38,7 @@
                         <Label text="Charts" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="History" />
+                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false">
@@ -54,7 +46,7 @@
                         <Label text="Portfolio" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false">
@@ -62,7 +54,7 @@
                         <Label text="About Us" textFill="WHITE" />
                      </graphic>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About Us" />
                      </items>
                   </Menu>
                </menus>
