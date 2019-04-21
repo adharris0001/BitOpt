@@ -148,8 +148,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			if(coin.equals("bTCUSD")){
 				
 				Transaction recent = portfolio.recentTransaction(coin);
-				availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-				lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+				availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
+				lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
 				
 				for(Transaction transaction : portfolio.getAccountInfo().get(coin)){
 					
@@ -197,8 +197,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			topCryptoCurrencyLabel.setText("BitCoin USD");
 			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 			//update balance labels
-			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
 			//update list view
 			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
 			//for(Transaction transaction : portfolio.getAccountInfo().get("bTCEUR")){
@@ -262,8 +262,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			topCryptoCurrencyLabel.setText("Ethereum USD");
 			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 			//update balance labels
-			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
 			//update list view
 			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
 				
@@ -304,30 +304,38 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	public void handleTransactionChoice(ActionEvent event){
 		
 		//items.clear();
+		
 		listView.getItems().clear();
 		String selectedTransaction = coinTransactionChoice.getValue();
 		double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
 		//System.out.println(selectedCpu);
 		if(selectedTransaction.equals("addCoin")) {	
-			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
+			//Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
+			Transaction recent = new Transaction("4/21/2019", "debit", 10, 385, 375);
 			//add or subtract to portfolio transaction
-			portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
+			//portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
 			//last balance is now current balance and current balance is new balance
-			lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
+			//lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
 			Transaction newTransaction = portfolio.recentTransaction(accountSelect.getValue());
-			availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
+			//availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
+			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
+
 			//save it back to the file
-			try {
-				portfolio.save(accountSelect.getValue());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				portfolio.save(accountSelect.getValue());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(selectedTransaction)){
+			for(Transaction transaction : portfolio.getAccountInfo().get("eTHUSD")){
+			//for(Transaction transaction : portfolio.getAccountInfo().){
+
 				
 				items.add(transaction.toString());
 			}		
 			
+			items.add(recent.toString());
 			listView.getItems().addAll(items);
 		}else {
 			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
