@@ -15,7 +15,7 @@ public class BitCoin {
 	
 	public BitCoin() {
 		super();
-		this.computeCapability = 90.0;
+		this.computeCapability = 0.0;
 		this.currentBTCUSDPrice = 0.0;
 		this.currentBTCEURPrice = 0.0;
 		this.currentETHUSDPrice = 0.0;
@@ -127,7 +127,7 @@ public class BitCoin {
         this.currentETHEURPrice = this.etheurPrices.get(this.etheurPrices.size()-1);
 	}
 
-	public double optimize() {
+	public void optimize() {
 		double btcusdSum = 0.0;
 		double btcusdAverage = 0.0;
 		double btceurSum = 0.0;
@@ -154,15 +154,16 @@ public class BitCoin {
 		ethusdAverage = (ethusdSum / this.ethusdPrices.size());
 		etheurAverage = (etheurSum / this.etheurPrices.size());	
 		
-		btcusdOptimized = ((this.btcusdPrices.get(i-1) / btcusdAverage) - 1) * 100;
-		btceurOptimized = ((this.btceurPrices.get(i-1) / btceurAverage) - 1) * 100;
-		ethusdOptimized = ((this.ethusdPrices.get(i-1) / ethusdAverage) - 1) * 100;
-		etheurOptimized = ((this.etheurPrices.get(i-1) / etheurAverage) - 1) * 100;
+		btcusdOptimized = ((btcusdAverage - this.btcusdPrices.get(i-1)) / ((btcusdAverage + this.btcusdPrices.get(i-1))/2)) * 100;
+		btceurOptimized = ((btceurAverage - this.btceurPrices.get(i-1)) / ((btceurAverage + this.btceurPrices.get(i-1))/2)) * 100;
+		ethusdOptimized = ((ethusdAverage - this.ethusdPrices.get(i-1)) / ((ethusdAverage + this.ethusdPrices.get(i-1))/2)) * 100;
+		etheurOptimized = ((etheurAverage - this.etheurPrices.get(i-1)) / ((etheurAverage + this.etheurPrices.get(i-1))/2)) * 100;
 		
 		double systemOptimized = ((btcusdOptimized + btceurOptimized + ethusdOptimized + etheurOptimized) / 4);
 		
+		System.out.println(systemOptimized);
+		
 		this.setComputeCapability(this.computeCapability + systemOptimized);
-		return systemOptimized;
 	}
 	
 	public double getComputeCapability() {

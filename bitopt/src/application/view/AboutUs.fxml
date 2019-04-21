@@ -13,7 +13,10 @@
       <children>
         <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
           <children>
-            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/bitcoin.png" />
+                     </image></ImageView>
           </children>
         </HBox>
         <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
@@ -82,7 +85,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="607.0" prefHeight="31.0" prefWidth="750.0" text="- Connor Wallace" textFill="WHITE" wrapText="true">
+            <Label layoutX="14.0" layoutY="607.0" prefHeight="31.0" prefWidth="750.0" text="- Conor Wallace" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>
