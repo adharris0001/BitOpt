@@ -303,10 +303,9 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	
 	public void handleTransactionChoice(ActionEvent event){
 		
-		items.clear();
+		//items.clear();
 		listView.getItems().clear();
 		String selectedTransaction = coinTransactionChoice.getValue();
-		System.out.println(selectedTransaction);
 		double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
 		//System.out.println(selectedCpu);
 		if(selectedTransaction.equals("addCoin")) {	
@@ -324,7 +323,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				e.printStackTrace();
 			}
 			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(accountChoiceLabel)){
+			for(Transaction transaction : portfolio.getAccountInfo().get(selectedTransaction)){
 				
 				items.add(transaction.toString());
 			}		

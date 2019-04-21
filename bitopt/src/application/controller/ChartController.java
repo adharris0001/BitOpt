@@ -113,7 +113,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	//Brings scene to Portfolio.fxml Controller = PortfolioController.java
 	public void portfolioHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio4.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
