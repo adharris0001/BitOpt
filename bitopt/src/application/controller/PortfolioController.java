@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.Main;
-import application.model.BitCoin;
+//import application.model.BitCoin;
 import application.model.Portfolio;
 import application.model.Transaction;
-import application.model.User;
+//import application.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,15 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
+//import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
+//import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -120,8 +120,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		label.setTextFill(Color.WHITE);
 		label.setFont(Font.font("Cambria", 34));
 		label.setAlignment(Pos.CENTER);
+		accountSelect.getItems().addAll("bTCUSD","bTCEUR","eTHUSD","eTHEUR");
+		coinTransactionChoice.getItems().addAll("addCoin","removeCoin");
 		
-		String userSelection = "";
+//		String userSelection = "";
 		
 		try {
 			
