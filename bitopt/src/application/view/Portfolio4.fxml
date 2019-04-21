@@ -31,14 +31,22 @@
          </children></AnchorPane>
       <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
          <children>
-            <Label prefHeight="73.0" prefWidth="500.0" text="Portfolio" textAlignment="CENTER" textFill="WHITE">
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/bitcoin.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="73.0" prefWidth="366.0" text="Portfolio" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="50.0" />
                </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </Label>
             <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#handle" text="Log Out">
                <HBox.margin>
-                  <Insets left="170.0" top="22.0" />
+                  <Insets left="240.0" top="22.0" />
                </HBox.margin>
             </Button>
          </children>
