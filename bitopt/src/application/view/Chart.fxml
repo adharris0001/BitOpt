@@ -36,14 +36,6 @@
     <Button layoutX="372.0" layoutY="731.0" mnemonicParsing="false" onAction="#generateChart" text="load chart" />
       <MenuBar fx:id="menu" layoutY="121.0" prefHeight="32.0" prefWidth="853.0" style="-fx-background-color: #000000;">
          <menus>
-            <Menu mnemonicParsing="false" onAction="#handle" style="-fx-text-fill: #ffffff;">
-               <graphic>
-                  <Label text="Home" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#homeHandle" text="Close" />
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
                   <Label text="System Setup" textFill="WHITE" />

@@ -21,42 +21,6 @@
                   <Font size="34.0" />
                </font>
             </Label>
-            <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
-              <menus>
-                <Menu mnemonicParsing="false" style="-fx-text-fill: #ffffff;">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                     <graphic>
-                        <Label text="Home" textFill="WHITE" />
-                     </graphic>
-                </Menu>
-                <Menu mnemonicParsing="false">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                     <graphic>
-                        <Label text="System Setup" textFill="WHITE" />
-                     </graphic>
-                </Menu>
-                <Menu mnemonicParsing="false">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                     <graphic>
-                        <Label text="Bitcoin" textFill="WHITE" />
-                     </graphic>
-                </Menu>
-                  <Menu mnemonicParsing="false">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                     </items>
-                     <graphic>
-                        <Label text="About Us" textFill="WHITE" />
-                     </graphic>
-                  </Menu>
-              </menus>
-            </MenuBar>
             <Label layoutX="300.0" layoutY="360.0" prefHeight="25.0" prefWidth="200.0" text="Enter Password" textFill="WHITE" />
          </children>
       </AnchorPane>

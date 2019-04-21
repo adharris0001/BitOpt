@@ -81,7 +81,7 @@ public class LoginController implements EventHandler<ActionEvent>, Initializable
 		// Redirect user to next view - Library
 		try {
 			if(user != null) {
-				Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
 				System.out.println("Loading Personnel Scene");			
 				Main.stage.setScene(new Scene(root, 800, 800));
 				Main.stage.show();
