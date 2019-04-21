@@ -3,6 +3,7 @@ package application.model;
 import java.util.ArrayList;
 
 public class BitCoin {
+	private double computeCapability;
 	private double currentBTCUSDPrice;
 	private double currentBTCEURPrice;
 	private double currentETHUSDPrice;
@@ -14,6 +15,7 @@ public class BitCoin {
 	
 	public BitCoin() {
 		super();
+		this.computeCapability = 90.0;
 		this.currentBTCUSDPrice = 0.0;
 		this.currentBTCEURPrice = 0.0;
 		this.currentETHUSDPrice = 0.0;
@@ -123,6 +125,52 @@ public class BitCoin {
         }
         
         this.currentETHEURPrice = this.etheurPrices.get(this.etheurPrices.size()-1);
+	}
+
+	public double optimize() {
+		double btcusdSum = 0.0;
+		double btcusdAverage = 0.0;
+		double btceurSum = 0.0;
+		double btceurAverage = 0.0;
+		double ethusdSum = 0.0;
+		double ethusdAverage = 0.0;
+		double etheurSum = 0.0;
+		double etheurAverage = 0.0;
+		double btcusdOptimized = 0.0;
+		double btceurOptimized = 0.0;
+		double ethusdOptimized = 0.0;
+		double etheurOptimized = 0.0;
+		int i = 0;
+		
+		for(i = 0; i < this.btcusdPrices.size(); i++) {
+			btcusdSum += this.btcusdPrices.get(i);
+			btceurSum += this.btceurPrices.get(i);
+			ethusdSum += this.ethusdPrices.get(i);
+			etheurSum += this.etheurPrices.get(i);
+		}
+		
+		btcusdAverage = (btcusdSum / this.btcusdPrices.size());
+		btceurAverage = (btceurSum / this.btceurPrices.size());
+		ethusdAverage = (ethusdSum / this.ethusdPrices.size());
+		etheurAverage = (etheurSum / this.etheurPrices.size());	
+		
+		btcusdOptimized = ((this.btcusdPrices.get(i-1) / btcusdAverage) - 1) * 100;
+		btceurOptimized = ((this.btceurPrices.get(i-1) / btceurAverage) - 1) * 100;
+		ethusdOptimized = ((this.ethusdPrices.get(i-1) / ethusdAverage) - 1) * 100;
+		etheurOptimized = ((this.etheurPrices.get(i-1) / etheurAverage) - 1) * 100;
+		
+		double systemOptimized = ((btcusdOptimized + btceurOptimized + ethusdOptimized + etheurOptimized) / 4);
+		
+		this.setComputeCapability(this.computeCapability + systemOptimized);
+		return systemOptimized;
+	}
+	
+	public double getComputeCapability() {
+		return computeCapability;
+	}
+
+	public void setComputeCapability(double computeCapability) {
+		this.computeCapability = computeCapability;
 	}
 
 	public double getCurrentBTCUSDPrice() {
