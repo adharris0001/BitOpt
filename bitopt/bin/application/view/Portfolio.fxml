@@ -1,120 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PortfolioController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PortfolioController">
    <children>
-      <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+      <AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="800.0">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="50.0">
+            <Label fx:id="topCryptoCurrencyLabel" layoutX="67.0" layoutY="153.0" text="Label" />
+            <Label fx:id="availableBalanceLabel" layoutX="115.0" layoutY="210.0" text="Available Balance" />
+            <Label fx:id="lastBalanceLabel" layoutX="117.0" layoutY="271.0" text="Last Balance" />
+            <Label fx:id="availableBalanceAmountLabel" layoutX="484.0" layoutY="210.0" text="Label" />
+            <Label fx:id="lastBalanceAmountLabel" layoutX="484.0" layoutY="271.0" text="Label" />
+            <Label fx:id="accountChoiceLabel" layoutX="115.0" layoutY="355.0" text="Account" />
+            <ComboBox fx:id="accountSelect" layoutX="475.0" layoutY="350.0" onAction="#handleAccountSelect" prefHeight="31.0" prefWidth="158.0" promptText="Select Account" />
+            <ComboBox fx:id="coinTransactionChoice" layoutX="102.0" layoutY="428.0" onAction="#handleTransactionChoice" prefHeight="31.0" prefWidth="167.0" promptText="Transaction Type" />
+            <TextField layoutX="472.0" layoutY="428.0" />
+            <Label fx:id="transactionLabel" layoutX="115.0" layoutY="517.0" text="Transaction History" />
+            <Label fx:id="dateLabel" layoutX="117.0" layoutY="575.0" text="Date" />
+            <Label fx:id="descriptionLabel" layoutX="254.0" layoutY="575.0" text="Description" />
+            <Label fx:id="amountLabel" layoutX="448.0" layoutY="575.0" text="Amount" />
+            <Label fx:id="balanceLabel" layoutX="634.0" layoutY="575.0" text="Balance" />
+            <ListView fx:id="listView" layoutX="100.0" layoutY="606.0" prefHeight="180.0" prefWidth="600.0" />
+            <MenuBar fx:id="menu" layoutY="73.0" prefHeight="32.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+               <menus>
+                  <Menu mnemonicParsing="false" onAction="#handle" style="-fx-text-fill: #ffffff;">
+                     <graphic>
+                        <Label text="Home" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#homeHandle" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="System Setup" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
+                     <graphic>
+                        <Label text="Charts" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="Portfolio" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <Label text="About Us" textFill="WHITE" />
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <Label fx:id="errorLabel" layoutX="578.0" layoutY="153.0" />
+         </children></AnchorPane>
+      <HBox fx:id="hbox" prefHeight="73.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../Documents/bitcoin.jpg" />
                </image>
             </ImageView>
+            <Label prefHeight="73.0" prefWidth="644.0" text="Portfolio" textFill="WHITE">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
-      <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
-         <menus>
-            <Menu mnemonicParsing="false" onAction="#homeHandle" style="-fx-text-fill: #ffffff;">
-               <graphic>
-                  <Label text="Home" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" onAction="#systemHandle">
-               <graphic>
-                  <Label text="System Setup" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" text="System Setup" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" onAction="#chartHandle">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Charts" />
-              </items>
-               <graphic>
-                  <Label text="Charts" textFill="WHITE" />
-               </graphic>
-            </Menu>
-            <Menu mnemonicParsing="false" onAction="#portfolioHandle">
-               <graphic>
-                  <Label text="Portfolio" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Portfolio" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" onAction="#aboutHandle">
-               <graphic>
-                  <Label text="About Us" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <GridPane layoutX="100.0" layoutY="198.0" prefHeight="100.0" prefWidth="550.0">
-         <children>
-            <Label fx:id="availableBalanceLabel" text="Available Balance" />
-            <Label fx:id="availableBalanceAmountLabel" text="Balance Amount" GridPane.columnIndex="1" />
-            <Label fx:id="lastBalanceLabel" text="Last Balance" GridPane.rowIndex="1" />
-            <Label fx:id="lastBalanceAmountLabel" text="Last Balance Amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <GridPane layoutX="100.0" layoutY="322.0" prefHeight="100.0" prefWidth="550.0">
-         <children>
-            <Label fx:id="accountChoiceLabel" text="Account" />
-            <TextField fx:id="transactionChoiceAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="accountSelect" onAction="#handleAccountSelect" prefWidth="150.0" promptText="Select Account" GridPane.columnIndex="1" />
-            <ComboBox fx:id="coinTransactionChoice" onAction="#handleTransactionChoice" prefWidth="150.0" promptText="Transaction Choice" GridPane.rowIndex="1" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <GridPane layoutX="100.0" layoutY="496.0" prefHeight="30.0" prefWidth="600.0">
-         <children>
-            <Label fx:id="dateLabel" text="Date" />
-            <Label fx:id="descriptionLabel" text="Description" GridPane.columnIndex="1" />
-            <Label fx:id="amountLabel" text="Amount" GridPane.columnIndex="2" />
-            <Label fx:id="balanceLabel" text="Balance" GridPane.columnIndex="3" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <ListView fx:id="listView" layoutX="100.0" layoutY="540.0" prefHeight="200.0" prefWidth="600.0" />
-      <Label fx:id="topCryptoCurrencyLabel" layoutX="38.0" layoutY="141.0" prefHeight="46.0" prefWidth="124.0" text="Crypto" />
-      <Label fx:id="transactionLabel" layoutX="100.0" layoutY="465.0" prefHeight="14.0" prefWidth="150.0" text="Transaction History" />
-      <Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Log Out" />
+      <Button fx:id="logOutButton" layoutX="710.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Log Out" />
    </children>
 </AnchorPane>

@@ -122,6 +122,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		label.setAlignment(Pos.CENTER);
 		accountSelect.getItems().addAll("bTCUSD","bTCEUR","eTHUSD","eTHEUR");
 		coinTransactionChoice.getItems().addAll("addCoin","removeCoin");
+		//cpuComboBox.getItems().addAll("Intel I9","Intel I7","Intel I5","Intel I3");	
+		//gpuComboBox.getItems().addAll("GTX 1080","GTX 1070","GTX 1060","GTX 1050");
 		
 //		String userSelection = "";
 		
