@@ -25,9 +25,9 @@ public class Portfolio {
 		this.name = name;
 		
 		//loading the keys to the map
-		
-		loadCoinName();
+		//this.accountInfo = new HashMap<String, ArrayList<Transaction>>();
 		this.accountInfo = new HashMap<String, ArrayList<Transaction>>();
+		loadCoinName();
 	}
 	
 	public String toString() {
@@ -53,9 +53,14 @@ public class Portfolio {
 		
 		ArrayList<String> cryptoCurrencyNames = new ArrayList<String>();
 		cryptoCurrencyNames.addAll(Arrays.asList("bTCUSD", "bTCEURO", "eTHUSD", "eTHEUR"));
+//		cryptoCurrencyNames.add("bTCUSD");
+//		cryptoCurrencyNames.add("bTCEUR");
+//		cryptoCurrencyNames.add("eTHUSD");
+//		cryptoCurrencyNames.add("eTHEUR");
 		
 		for(String name : cryptoCurrencyNames) {
 			
+			System.out.println(name);
 			this.accountInfo.put(name, new ArrayList<Transaction>());
 		}
 	}
