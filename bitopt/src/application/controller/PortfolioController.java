@@ -177,7 +177,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	public void handleAccountSelect(ActionEvent event){
 
 		String selectedAccount = accountSelect.getValue();
-		//System.out.println(selectedCpu);
+		items.clear();
+		listView.getItems().clear();
 		if(selectedAccount.equals("bTCUSD")) {
 			
 			try {
@@ -200,11 +201,16 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
 			//update list view
 			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+			//for(Transaction transaction : portfolio.getAccountInfo().get("bTCEUR")){
 				
 				items.add(transaction.toString());
 			}		
+			
+			listView.getItems().addAll(items);
 		}else if(selectedAccount.equals("bTCEUR")) {
 			
+			items.clear();
+			listView.getItems().clear();
 			try {
 				
 				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
@@ -231,11 +237,16 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
 			//update list view
 			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-				
+	
 				items.add(transaction.toString());
 			}		
+			
+			listView.getItems().addAll(items);
+			
 		}else if(selectedAccount.equals("eTHUSD")) {
 			
+			items.clear();
+			listView.getItems().clear();
 			try {
 				
 				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
@@ -258,8 +269,12 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				
 				items.add(transaction.toString());
 			}		
+			
+			listView.getItems().addAll(items);
 		}else {
 			
+			items.clear();
+			listView.getItems().clear();
 			try {
 				
 				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
@@ -282,12 +297,16 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				
 				items.add(transaction.toString());
 			}		
+			listView.getItems().addAll(items);
 		}
 	}
 	
 	public void handleTransactionChoice(ActionEvent event){
 		
+		items.clear();
+		listView.getItems().clear();
 		String selectedTransaction = coinTransactionChoice.getValue();
+		System.out.println(selectedTransaction);
 		double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
 		//System.out.println(selectedCpu);
 		if(selectedTransaction.equals("addCoin")) {	
@@ -309,6 +328,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				
 				items.add(transaction.toString());
 			}		
+			
+			listView.getItems().addAll(items);
 		}else {
 			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
 			//add or subtract to portfolio transaction
@@ -328,6 +349,8 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 				
 				items.add(transaction.toString());
 			}		
+			
+			listView.getItems().addAll(items);
 		}
 	}
 	
