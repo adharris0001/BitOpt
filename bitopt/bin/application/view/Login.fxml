@@ -32,7 +32,7 @@
       <Label layoutX="300.0" layoutY="265.0" prefHeight="25.0" prefWidth="200.0" text="Enter Username:" textFill="WHITE" />
       <Button layoutX="373.0" layoutY="435.0" mnemonicParsing="false" onAction="#handle" text="Login" />
       <Label layoutX="323.0" layoutY="500.0" text="Don't have an account?" textFill="WHITE" />
-      <Button layoutX="365.0" layoutY="525.0" mnemonicParsing="false" onAction="#signUpHandle" prefWidth="70.0" text="Sign Up" />
+      <Button layoutX="365.0" layoutY="525.0" mnemonicParsing="false" onAction="#signUpHandle" prefHeight="31.0" prefWidth="75.0" text="Sign Up" />
       <Label fx:id="errorLabel" layoutX="265.0" layoutY="575.0" maxWidth="275.0" prefWidth="270.0">
          <font>
             <Font name="FreeMono" size="14.0" />

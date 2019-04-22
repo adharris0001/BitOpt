@@ -30,7 +30,7 @@
       <Label layoutX="300.0" layoutY="260.0" prefHeight="25.0" prefWidth="200.0" text="Enter Username:" textFill="WHITE" />
       <TextField fx:id="textField" layoutX="300.0" layoutY="300.0" prefWidth="200.0" />
       <TextField fx:id="textField1" layoutX="300.0" layoutY="400.0" prefWidth="200.0" />
-      <Button layoutX="365.0" layoutY="445.0" mnemonicParsing="false" onAction="#handle" prefWidth="70.0" text="Sign Up" />
+      <Button layoutX="365.0" layoutY="445.0" mnemonicParsing="false" onAction="#handle" prefHeight="31.0" prefWidth="75.0" text="Sign Up" />
       <Label layoutX="300.0" layoutY="360.0" prefHeight="25.0" prefWidth="200.0" text="Enter Password:" textFill="WHITE" />
    </children>
 </AnchorPane>
