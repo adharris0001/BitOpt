@@ -147,7 +147,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		//getting the String name of the account that the user is choosing
 		//displaying the view of all the values and labels with respect to the account selection
-				
+			
+		//trying to see if accountSelect.getValue() is pulling right, this works
+//		System.out.println(accountSelect.getValue());
+		
 		accountSelectView(accountSelect.getValue());
 	}
 	
@@ -345,7 +348,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		//save it back to the file
 		
-//		saveUpdatedFile(selectedAccount);
+		saveUpdatedFile(selectedAccount);
 	}
 	
 	public void updateLabels(String selectedAccount, Transaction recent) {

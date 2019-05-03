@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PortfolioController">
+   <children>
+      <AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <Label fx:id="topCryptoCurrencyLabel" layoutX="67.0" layoutY="155.0" text="Label" />
+            <Label fx:id="availableBalanceLabel" layoutX="102.0" layoutY="213.0" text="Available Balance" />
+            <Label fx:id="lastBalanceLabel" layoutX="102.0" layoutY="273.0" text="Last Balance" />
+            <Label fx:id="availableBalanceAmountLabel" layoutX="480.0" layoutY="213.0" text="Label" />
+            <Label fx:id="lastBalanceAmountLabel" layoutX="480.0" layoutY="284.0" text="Label" />
+            <Label fx:id="errorLabel" layoutX="400.0" layoutY="155.0" />
+            <Label layoutX="102.0" layoutY="370.0" text="Account" />
+            <Label layoutX="102.0" layoutY="528.0" text="Transaction History" />
+            <ComboBox fx:id="accountSelect" layoutX="480.0" layoutY="365.0" onAction="#handleAccountSelect" prefHeight="31.0" prefWidth="157.0" promptText="Select Account" />
+            <ComboBox fx:id="coinTransactionChoice" layoutX="102.0" layoutY="429.0" onAction="#handleTransactionChoice" prefHeight="31.0" prefWidth="166.0" promptText="Transaction Type" />
+            <Label layoutX="102.0" layoutY="582.0" text="Date" />
+            <Label layoutX="252.0" layoutY="582.0" text="Description" />
+            <Label layoutX="445.0" layoutY="582.0" text="Amount" />
+            <Label layoutX="613.0" layoutY="582.0" text="Balance" />
+            <ListView fx:id="listView" layoutX="72.0" layoutY="615.0" prefHeight="168.0" prefWidth="621.0" />
+            <TextField fx:id="transactionChoiceAmount" layoutX="480.0" layoutY="429.0" promptText="Enter Amount" />
+         </children></AnchorPane>
+      <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/bitcoin.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="73.0" prefWidth="366.0" text="Portfolio" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="50.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#handle" text="Log Out">
+               <HBox.margin>
+                  <Insets left="240.0" top="22.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <MenuBar fx:id="menu" layoutY="75.0" prefHeight="32.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+         <menus>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Label text="System Setup" textFill="WHITE" />
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
+               <graphic>
+                  <Label text="Charts" textFill="WHITE" />
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Label text="Portfolio" textFill="WHITE" />
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Label text="About Us" textFill="WHITE" />
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

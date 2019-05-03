@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AboutUsController">
+  <children>
+    <AnchorPane fx:id="panel" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0">
+      <children>
+        <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+          <children>
+            <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/bitcoin.png" />
+                     </image></ImageView>
+          </children>
+        </HBox>
+        <MenuBar fx:id="menu" layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+          <menus>
+            <Menu mnemonicParsing="false">
+              <graphic>
+                <Label text="System Setup" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
+              <graphic>
+                <Label text="Charts" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false">
+              <graphic>
+                <Label text="Portfolio" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false">
+              <graphic>
+                <Label text="About Us" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+        <Label fx:id="label" layoutX="237.0" layoutY="15.0" prefHeight="45.0" prefWidth="326.0">
+          <font>
+            <Font size="34.0" />
+          </font>
+        </Label>
+            <Label layoutX="27.0" layoutY="123.0" prefHeight="75.0" prefWidth="334.0" text="What is BitOpt?" textFill="WHITE" underline="true">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="198.0" prefHeight="127.0" prefWidth="750.0" text="BitOpt is an application that optimizes your mining system based on hourly updated cryptocurrency values. This application takes a significant amount of computational work away from the miner and provides automated statistics to aid in achieving the miner’s profit gain." textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="337.0" prefHeight="127.0" prefWidth="750.0" text="BitOpt will read the past monthly average value of the selected cryptocurrency, the updated value on the hour, and will calculate the deviation between both values. Using this deviation, your mining system’s compute capacity can be optimized to the suggested percentage." textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="516.0" prefHeight="75.0" prefWidth="334.0" text="The Team" textFill="WHITE" underline="true">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="576.0" prefHeight="31.0" prefWidth="750.0" text="- Tony Harris" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="607.0" prefHeight="31.0" prefWidth="750.0" text="- Conor Wallace" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="669.0" prefHeight="31.0" prefWidth="750.0" text="- Blake Powell" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="638.0" prefHeight="31.0" prefWidth="750.0" text="- Tommy Herz" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="700.0" prefHeight="31.0" prefWidth="750.0" text="- Pablo Perez" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+    <Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Log Out" />
+  </children>
+</AnchorPane>

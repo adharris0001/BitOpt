@@ -198,7 +198,13 @@ public class Portfolio {
 	
 	public Transaction recentTransaction(String coin) {
 		
+		System.out.println(coin);
+		
 		int lastIndex = this.accountInfo.get(coin).size() - 1;		
+		
+		//trying to see if this actually prints out the last transaction
+		System.out.println(this.accountInfo.get(coin).toString());
+		
 		return this.accountInfo.get(coin).get(lastIndex);	
 	}
 
