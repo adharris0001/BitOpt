@@ -111,9 +111,13 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
     ObservableList<String> items = FXCollections.observableArrayList();
     
     Portfolio portfolio = new Portfolio("Cryptocurrency");
+    
+    int countSelects; 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		countSelects = 1;
 		
 		//Adding the proper color scheme of the scene to match other views
 		
@@ -124,6 +128,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		initializeDropDowns();
 		
 		//loading transactions with respect to bTCUSD as the default initial view
+		//loading all transactions as well
 		//initializing the most recent transaction
 		
 		Transaction recent = getTransactions("bTCUSD");
@@ -135,11 +140,12 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		//initial list view that user sees in portfolio view all based on bTCUSD values
 		
 		updateListView("bTCUSD");
-		//System.out.println(accountSelect.getValue());
 	}
 	
 	public void handleAccountSelect(ActionEvent event){
 
+		countSelects++;
+		
 		//clearing the transaction choice amount text field for possible new entries
 		
 		transactionChoiceAmount.clear();
@@ -147,15 +153,12 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		//getting the String name of the account that the user is choosing
 		//displaying the view of all the values and labels with respect to the account selection
-			
-		//trying to see if accountSelect.getValue() is pulling right, this works
-//		System.out.println(accountSelect.getValue());
 		
 		accountSelectView(accountSelect.getValue());
 	}
 	
 	public void handleTransactionChoice(ActionEvent event){
-		//System.out.println(accountSelect.getValue());
+		
 		//clearing the items array list  
 		
 		items.clear();
@@ -222,17 +225,15 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		//loading transactions with respect to user's account selection
 		//initializing the most recent transaction
 		
-//		int length = portfolio.getAccountInfo().get(selectedAccount).size() - 1;
-//		Transaction recent = portfolio.getAccountInfo().get(selectedAccount).get(length);
 		Transaction recent = portfolio.recentTransaction(selectedAccount);
-		
-		//updating labels based on the user's account selection
-		
-		updateLabels(selectedAccount, recent);
 			
-		//update the list view with transaction values based on the user's account selection
-		
-		updateListView(selectedAccount);	
+			//updating labels based on the user's account selection
+			
+			updateLabels(selectedAccount, recent);
+				
+			//update the list view with transaction values based on the user's account selection
+			
+			updateListView(selectedAccount);
 	}
 	
 	public void clearViewItems() {
@@ -246,6 +247,9 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		try {
 			
 			portfolio.loadTransactions(selectedAccount, "portfolioData/" + selectedAccount + ".csv" );
+			portfolio.loadTransactions("bTCEUR", "portfolioData/bTCEUR.csv" );
+			portfolio.loadTransactions("eTHUSD", "portfolioData/eTHUSD.csv" );
+			portfolio.loadTransactions("eTHEUR", "portfolioData/eTHEUR.csv" );
 		} 
 		
 		catch (IOException e1) {
@@ -345,10 +349,6 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		//update list view
 		
 		updateListView(selectedAccount);
-		
-		//save it back to the file
-		
-		saveUpdatedFile(selectedAccount);
 	}
 	
 	public void updateLabels(String selectedAccount, Transaction recent) {
@@ -397,46 +397,14 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		ArrayList<Transaction> transactions = portfolio.getAccountInfo().get(selectedAccount);
 		
-		//This is showing that the most recent transaction is being duplicated
-//		System.out.println("This is how big the transactions are " + transactions.size());
-//		
-//		for (Transaction t : portfolio.getAccountInfo().get(selectedAccount)) {
-//			
-//			System.out.println(t.toString());
-//		}
-		
 		int length = portfolio.getAccountInfo().get(selectedAccount).size() - 1;
-		
-//		System.out.println(length);
-		
-		//ok, so items has nothing in it right now as expected
-//		System.out.println(items.size());
 		
 		for(int i = length; i >= 0; i--) {
 			
 			items.add(transactions.get(i).toString());
-			
-//			System.out.println("Number of items being stored: " + items.size());
-			
-			//this didn't work
-//			System.out.println(items.get(i).toString());
 		}
-		
-		System.out.println("Made it past the for loop in update list view");
-		
-		//original transaction history showing transactions in chronological order
-//		for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-//			
-//			items.add(transaction.toString());
-//			
-//		}		
-		
-//		System.out.println("The size of the list view is: " + listView.getItems().size());
-		
+				
 		listView.getItems().addAll(items);	
-		
-//		System.out.println("The size of the list view is now : " + listView.getItems().size());
-
 	}
 	
 	public void saveUpdatedFile(String selectedAccount) {

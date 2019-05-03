@@ -81,11 +81,6 @@ public class Portfolio {
 				}
 			}
 			
-//			for (Transaction t : this.accountInfo.get(userSelection)) {
-//			
-//			System.out.println(t.toString());
-//		}
-			
 			scan.close();
 		}
 		
@@ -99,18 +94,13 @@ public class Portfolio {
 		
 		try {
 
-			FileWriter Writer = new FileWriter(new File("portfolioData/" + coinType + ".csv"));
+			FileWriter Writer = new FileWriter(new File("portfolioData/" + coinType + ".csv"), true);
 					
 			String line = "";
 			
-			//for a given key, saving all the transactions back to a .csv file
-			
-			for(Transaction transaction : this.accountInfo.get(coinType)) {
-
-				line = transactionCSV(transaction);
-				Writer.write(line);
-			}
-			
+			Transaction recent = recentTransaction(coinType);
+			line = transactionCSV(recent);
+			Writer.append(line);
 			Writer.close();
 			
 		}catch(IOException e) {
@@ -136,12 +126,6 @@ public class Portfolio {
 		Transaction transaction = new Transaction("", "", 0.0, 0.0, 0.0);
 		Transaction recent = recentTransaction(coinType);
 		
-		//weird...this is showing that I've already added the transaction
-		for (Transaction t : this.accountInfo.get(coinType)) {
-		
-		System.out.println(t.toString());
-		}
-		
 		//for a given key, performing a deposit (credit) of a certain coin amount, then adding the transaction to the map
 				
 		transaction.setPreviousBalance(recent.getCurrentBalance());
@@ -150,11 +134,15 @@ public class Portfolio {
 		transaction.setTransactionType("credit");
 		transaction.setDate("4/21/2019");
 		this.accountInfo.get(coinType).add(transaction);
-		
-		//Somehow I'm getting twice the amount of transactions in a coin type
-		for (Transaction t : this.accountInfo.get(coinType)) {
+
+		try {
 			
-			System.out.println(t.toString());
+			save(coinType);
+		} 
+		
+		catch (IOException e) {
+			
+			e.printStackTrace();
 		}
 	}
 	
@@ -175,7 +163,6 @@ public class Portfolio {
 				
 				if((recent.getCurrentBalance() - coin) < 0) {
 					
-					System.out.println((recent.getCurrentBalance() - coin));
 					return false;
 				}
 				
@@ -193,18 +180,22 @@ public class Portfolio {
 			}			
 		}
 		
+		try {
+			save(coinType);
+			
+		} 
+		
+		catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
 		return true;
 	}
 	
 	public Transaction recentTransaction(String coin) {
 		
-		System.out.println(coin);
-		
 		int lastIndex = this.accountInfo.get(coin).size() - 1;		
-		
-		//trying to see if this actually prints out the last transaction
-		System.out.println(this.accountInfo.get(coin).toString());
-		
 		return this.accountInfo.get(coin).get(lastIndex);	
 	}
 
