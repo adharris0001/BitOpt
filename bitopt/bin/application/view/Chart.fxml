@@ -1,75 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.chart.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="panel" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ChartController">
-  <!-- TODO Add Nodes -->
+<AnchorPane maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ChartController">
   <children>
-      <HBox fx:id="hbox" prefHeight="120.0" prefWidth="810.0">
-         <children>
+    <AnchorPane fx:id="panel" maxHeight="800.0" maxWidth="800.0" prefHeight="800.0" prefWidth="800.0">
+      <children>
+        <HBox fx:id="hbox" prefHeight="75.0" prefWidth="800.0">
+          <children>
             <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/bitcoin.png" />
-               </image>
-            </ImageView>
-          <Label prefHeight="73.0" prefWidth="644.0" text="BitOpt Line Chart" textFill="WHITE">
-            <font>
-              <Font size="50.0" />
-            </font>
-          </Label>
-         </children>
-      </HBox>
-    <LineChart id="LineChart" fx:id="lineChart" layoutX="21.0" layoutY="178.0" legendVisible="true" prefHeight="533.0" prefWidth="758.0" title="LINE CHART">
-      <xAxis>
-        <CategoryAxis animated="false" label="Time (Hours)" side="BOTTOM" tickLabelFill="WHITE" />
-      </xAxis>
-      <yAxis>
-        <NumberAxis label="Value in USD/EUR" side="LEFT" tickLabelFill="WHITE" />
-      </yAxis>
-    </LineChart>
-    <Button layoutX="372.0" layoutY="731.0" mnemonicParsing="false" onAction="#generateChart" text="load chart" />
-      <MenuBar fx:id="menu" layoutY="121.0" prefHeight="32.0" prefWidth="853.0" style="-fx-background-color: #000000;">
-         <menus>
+                     <image>
+                        <Image url="@../../../../images/bitcoin.png" />
+                     </image></ImageView>
+                  <Label prefHeight="76.0" prefWidth="590.0" text="BitOpt Line Chart" />
+          </children>
+        </HBox>
+        <MenuBar layoutY="75.0" prefWidth="800.0" style="-fx-background-color: #000000;">
+          <menus>
             <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label text="System Setup" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
-               </items>
+              <graphic>
+                <Label text="System Setup" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#systemHandle" text="System Setup" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false" onAction="#chartHandle" style="-fx-text-fill: #ffffff;">
-               <graphic>
-                  <Label text="Charts" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
-               </items>
+              <graphic>
+                <Label text="Charts" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#chartHandle" text="Charts" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label text="Portfolio" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
-               </items>
+              <graphic>
+                <Label text="Portfolio" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#portfolioHandle" text="Portfolio" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label text="About Us" textFill="WHITE" />
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
-               </items>
+              <graphic>
+                <Label text="About Us" textFill="WHITE" />
+              </graphic>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#aboutHandle" text="About" />
+              </items>
             </Menu>
-         </menus>
-      </MenuBar>
-  	<Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Log Out" />
+          </menus>
+        </MenuBar>
+            <LineChart fx:id="lineChart" animated="false" layoutX="18.0" layoutY="152.0" prefHeight="467.0" prefWidth="765.0" title="Bitcoin and Ethereum values in the past 48 hours">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <ComboBox fx:id="comboBox" layoutX="286.0" layoutY="656.0" prefWidth="150.0" promptText="Hour" />
+            <Label layoutX="40.0" layoutY="644.0" prefHeight="55.0" prefWidth="252.0" text="Check value at hour:" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="154.0" layoutY="693.0" prefHeight="55.0" prefWidth="65.0" text="Bitcoin:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="bitVal" layoutX="231.0" layoutY="696.0" prefHeight="55.0" prefWidth="115.0" text="00.00" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="367.0" layoutY="696.0" prefHeight="55.0" prefWidth="93.0" text="Etheruem:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="ethVal" layoutX="467.0" layoutY="696.0" prefHeight="55.0" prefWidth="150.0" text="00.00" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="610.0" layoutY="656.0" mnemonicParsing="false" onAction="#findValue" prefHeight="31.0" prefWidth="135.0" text="Check Value" />
+            <ComboBox fx:id="comboBoxC" layoutX="447.0" layoutY="656.0" prefWidth="150.0" promptText="Currency" />
+      </children>
+    </AnchorPane>
+    <Button layoutX="700.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" text="Log Out" />
   </children>
 </AnchorPane>

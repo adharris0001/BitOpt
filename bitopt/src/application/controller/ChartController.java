@@ -15,11 +15,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 //Tommy Herz
 public class ChartController implements EventHandler<ActionEvent>, Initializable {
-	//handle logs the user out
+	
+	/* javadoc notes:
+	I added comments to most functions and some comments on some blocks of code.
+	But heres the rundown:
+	-This view shows the local values from bitcoin and displays the on a linechart
+	-You can view what value is at a certain hour for bot eth and btc
+	-Also supports different currency values
+	-This class is the controller for Chart.fxml
+	-You can go to any other view using the menubar in this class.
+	-You can also log out from this class
+	*/
 	
 	@FXML
 	HBox hbox = new HBox();
@@ -30,12 +42,29 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	@FXML
 	LineChart<String,Number> lineChart;
 	
+	@FXML
+	ComboBox<String> comboBox;
+	
+	@FXML
+	ComboBox<String> comboBoxC;
+	
+	@FXML
+	Label bitVal;
+	
+	@FXML 
+	Label ethVal;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//gray background
 		panel.setStyle("-fx-background-color: #8c8c8c;");
 		hbox.setStyle("-fx-background-color: #000000;");
+		//set comboBoxs
+		comboBoxSet();
+		//Now generates chart from the get go
+		generateChart();
 	}
-	
+	// BitCoin
 	BitCoin bitCoin = new BitCoin();
 	
 	//gets value from the static BitCoin instance from LoginController
@@ -48,19 +77,20 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	//Suppress warning is needed because eclipse is bad 
 	//Main method to generate LineChart
 	@SuppressWarnings("unchecked")
-	public void generateChart(ActionEvent e) {
+	public void generateChart() {
+		
 		//title
 		lineChart.setTitle("Bitcoin & Etherium values (last 48 hours)");
 	
-		//each time you generate chart, clear chart first
+		//each time you generate the chart, you must clear the chart first
 		lineChart.getData().clear();
 	
-		
+		//check to make sure bitCoin.java is here
 		if(btceur==null||btcusd==null||etheur==null||ethusd==null){
-			System.out.println("Error: No data found.");
+			System.out.println("Error: currupted data or missing files found.");
 			
 		} else {
-			//makes the series that line chart can read
+			//makes the series that a line chart can read (linecharts are pretty dumb for how smart they are)
 			XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 			XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
 			XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
@@ -79,21 +109,28 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			series3.setName("Etherium EUR");
 			series4.setName("Etherium USD");
 			
-			//adds all lines
+			//adds all lines to lineChart
 			lineChart.getData().addAll(series1,series2,series3,series4);
 			}
 	}
-	
-	//brings user back home
-	public void homeHandle(ActionEvent arg0){
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
-			System.out.println("Loading Personnel Scene");			
-			Main.stage.setScene(new Scene(root, 800, 800));
-			Main.stage.show();
-
-		} catch(Exception e) {
-			e.printStackTrace();
+	//used to set comboboxs
+	public void comboBoxSet(){
+	        for (int i = 1 ; i <=48 ; i++) {
+	        	comboBox.getItems().add(Integer.toString(i));
+	        }
+	        comboBoxC.getItems().add("USD");
+	        comboBoxC.getItems().add("EUR");
+	}
+	//called from "Check Value button" .  Gets combobox values and returns values from arraylists of bitcoin/etheruem
+	public void findValue() {
+		int i = Integer.parseInt(comboBox.getValue());
+		if (comboBoxC.getValue().contains("USD")) {
+			bitVal.setText("$ "+Math.round(btcusd.get(i)));
+			ethVal.setText("$ "+Math.round(ethusd.get(i)));
+		}
+		else {
+			bitVal.setText("€ "+Math.round(btceur.get(i)));
+			ethVal.setText("€ "+Math.round(etheur.get(i)));
 		}
 	}
 
@@ -117,7 +154,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
-
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +167,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
-
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -149,6 +186,7 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		}
 	}
 
+	//logs user out
 	@Override
 	public void handle(ActionEvent event) {
 		try {
