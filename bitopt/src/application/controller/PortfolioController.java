@@ -1,6 +1,7 @@
 package application.controller;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import application.Main;
 //import application.model.BitCoin;
@@ -114,23 +115,134 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		//Adding the proper color scheme of the scene to match other views
+		
+		backgroundDisplay();
+		
+		//adding selections to drop down boxes
+		
+		initializeDropDowns();
+		
+		//loading transactions with respect to bTCUSD as the default initial view
+		//initializing the most recent transaction
+		
+		Transaction recent = getTransactions("bTCUSD");
+		
+		//setting default labels
+		
+		updateLabels("bTCUSD", recent);
+		
+		//initial list view that user sees in portfolio view all based on bTCUSD values
+		
+		updateListView("bTCUSD");
+		//System.out.println(accountSelect.getValue());
+	}
+	
+	public void handleAccountSelect(ActionEvent event){
+
+		//clearing the transaction choice amount text field for possible new entries
+		
+		transactionChoiceAmount.clear();
+		errorLabel.setText("");
+		
+		//getting the String name of the account that the user is choosing
+		//displaying the view of all the values and labels with respect to the account selection
+				
+		accountSelectView(accountSelect.getValue());
+	}
+	
+	public void handleTransactionChoice(ActionEvent event){
+		//System.out.println(accountSelect.getValue());
+		//clearing the items array list  
+		
+		items.clear();
+		errorLabel.setText("");
+		
+		//checking to see if user is entering data correctly
+		
+		if(errorCheck()) {
+						
+			//getting the double amount of the user's entry and initializing variable
+			
+			double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
+			
+			if(coinTransactionChoice.getValue().equals("addCoin")) {	
+								
+				//add to portfolio transaction
+				
+				portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
+				coinTransaction(accountSelect.getValue());
+			}
+			
+			else {
+				
+				//subtract to portfolio transaction
+				//if withdrawing more than you have in your account, print error
+				
+				if (portfolio.removeCoin(accountSelect.getValue(), selectedTransactionAmount)) {
+					
+					coinTransaction(accountSelect.getValue());
+				}
+				
+				else {
+					
+					errorLabelMessage("Can't withdraw more than you have");
+				}
+			}
+		}
+		
+		coinTransactionChoice.setValue(null);
+	}
+	
+	public void backgroundDisplay() {
+		
 		panel.setStyle("-fx-background-color: #8c8c8c;");
 		hbox.setStyle("-fx-background-color: #000000;");
 		label.setText("Welcome to BitOpt");
 		label.setTextFill(Color.WHITE);
 		label.setFont(Font.font("Cambria", 34));
 		label.setAlignment(Pos.CENTER);
+	}
+	
+	public void initializeDropDowns() {
+		
 		accountSelect.getItems().addAll("bTCUSD","bTCEUR","eTHUSD","eTHEUR");
 		coinTransactionChoice.getItems().addAll("addCoin","removeCoin");
-		//cpuComboBox.getItems().addAll("Intel I9","Intel I7","Intel I5","Intel I3");	
-		//gpuComboBox.getItems().addAll("GTX 1080","GTX 1070","GTX 1060","GTX 1050");
+	}
+	
+	public void accountSelectView(String selectedAccount) {
 		
-//		String userSelection = "";
+		//clearing the previous values from the items ArrayList and the listView
+		
+		clearViewItems();
+		
+		//loading transactions with respect to user's account selection
+		//initializing the most recent transaction
+		
+//		int length = portfolio.getAccountInfo().get(selectedAccount).size() - 1;
+//		Transaction recent = portfolio.getAccountInfo().get(selectedAccount).get(length);
+		Transaction recent = portfolio.recentTransaction(selectedAccount);
+		
+		//updating labels based on the user's account selection
+		
+		updateLabels(selectedAccount, recent);
+			
+		//update the list view with transaction values based on the user's account selection
+		
+		updateListView(selectedAccount);	
+	}
+	
+	public void clearViewItems() {
+		
+		items.clear();
+		listView.getItems().clear();
+	}
+	
+	public Transaction getTransactions(String selectedAccount) {
 		
 		try {
 			
-			//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
-			portfolio.loadTransactions("bTCUSD", "portfolioData/bTCUSD.csv" );
+			portfolio.loadTransactions(selectedAccount, "portfolioData/" + selectedAccount + ".csv" );
 		} 
 		
 		catch (IOException e1) {
@@ -138,226 +250,202 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			e1.printStackTrace();
 		}
 		
-		//setting default labels
+		Transaction recent = portfolio.recentTransaction(selectedAccount);
+		return recent;
+	}
+	
+	public boolean errorCheck() {	
 		
-		topCryptoCurrencyLabel.setText("BitCoin USD");
+		if(!(checkSelectionAndAmount())) {
+
+			return false;
+		}
+		
+		else {
+			
+			return transactionChoiceAmountError();
+		}
+	}
+	
+	public boolean checkSelectionAndAmount() {
+		
+		if(accountSelect.getSelectionModel().isEmpty()) {
+			
+			transactionChoiceAmountErrorNotification("select an account");
+			return false;
+		}
+		
+		if(transactionChoiceAmount.getText().equals("")) {
+			
+			transactionChoiceAmountErrorNotification("Blank transaction amount field");
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}
+	}
+	
+	public boolean transactionChoiceAmountError() {
+		
+		if(!(isNumeric(transactionChoiceAmount.getText()))){
+			
+			transactionChoiceAmountErrorNotification("Enter a numerical value in the transaction amount field");
+			return false;
+		}
+		
+		if((Double.parseDouble(transactionChoiceAmount.getText()) <= 0)){
+			
+			transactionChoiceAmountErrorNotification("Enter a value greater than 0");
+			return false;
+		}
+		
+		else {
+			
+			return true;
+		}
+	}
+	
+	public void transactionChoiceAmountErrorNotification(String message) {
+		
+		errorLabelMessage(message);
+		coinTransactionChoice.setValue(null);
+	}
+	
+	public boolean isNumeric(String transactionAmount) {
+		
+		try {
+			
+			double selectedTransactionAmount = Double.parseDouble(transactionAmount);
+		}
+		
+		catch(NumberFormatException e){
+			
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void coinTransaction(String selectedAccount) {
+				
+		//getting most recent add or remove coin transaction
+		
+		Transaction recent = portfolio.recentTransaction(selectedAccount);
+		
+		//last balance is now current balance and current balance is new balance
+		//updating labels based on the user's account selection
+		
+		updateLabels(selectedAccount, recent);
+
+		//update list view
+		
+		updateListView(selectedAccount);
+		
+		//save it back to the file
+		
+//		saveUpdatedFile(selectedAccount);
+	}
+	
+	public void updateLabels(String selectedAccount, Transaction recent) {
+		
+		//update top label
+		
+		switch (selectedAccount) {
+		
+			case "bTCUSD":
+				
+				topCryptoCurrencyLabel.setText("BitCoin USD");
+				break;
+				
+			case "bTCEUR":
+				
+				topCryptoCurrencyLabel.setText("BitCoin EUR");
+				break;
+				
+			case "eTHUSD":
+				
+				topCryptoCurrencyLabel.setText("Ethereum USD");
+				break;
+				
+			case "eTHEUR":
+				
+				topCryptoCurrencyLabel.setText("Ethereum EUR");
+				break;
+			
+			default:
+				
+				topCryptoCurrencyLabel.setText("BitCoin USD");
+				break;
+		}
+		
 		topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 		
-		for(String coin : portfolio.getAccountInfo().keySet()){
+		//update balance labels
+		
+		availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
+		lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
+	}
+	
+	public void updateListView(String selectedAccount) {
+		
+		clearViewItems();
+		
+		ArrayList<Transaction> transactions = portfolio.getAccountInfo().get(selectedAccount);
+		
+		//This is showing that the most recent transaction is being duplicated
+//		System.out.println("This is how big the transactions are " + transactions.size());
+//		
+//		for (Transaction t : portfolio.getAccountInfo().get(selectedAccount)) {
+//			
+//			System.out.println(t.toString());
+//		}
+		
+		int length = portfolio.getAccountInfo().get(selectedAccount).size() - 1;
+		
+//		System.out.println(length);
+		
+		//ok, so items has nothing in it right now as expected
+//		System.out.println(items.size());
+		
+		for(int i = length; i >= 0; i--) {
 			
-			if(coin.equals("bTCUSD")){
-				
-				Transaction recent = portfolio.recentTransaction(coin);
-				availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
-				lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
-				
-				for(Transaction transaction : portfolio.getAccountInfo().get(coin)){
-					
-					items.add(transaction.toString());
-				}		
-			}
+			items.add(transactions.get(i).toString());
+			
+//			System.out.println("Number of items being stored: " + items.size());
+			
+			//this didn't work
+//			System.out.println(items.get(i).toString());
 		}
 		
-		listView.getItems().addAll(items);
-	}
+		System.out.println("Made it past the for loop in update list view");
+		
+		//original transaction history showing transactions in chronological order
+//		for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
+//			
+//			items.add(transaction.toString());
+//			
+//		}		
+		
+//		System.out.println("The size of the list view is: " + listView.getItems().size());
+		
+		listView.getItems().addAll(items);	
+		
+//		System.out.println("The size of the list view is now : " + listView.getItems().size());
 
-	@Override
-	public void handle(ActionEvent event) {
+	}
+	
+	public void saveUpdatedFile(String selectedAccount) {
+		
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
-			System.out.println("Loading Personnel Scene");			
-			Main.stage.setScene(new Scene(root, 800, 800));
-			Main.stage.show();
-
-		} catch(Exception e) {
+			
+			portfolio.save(selectedAccount);
+		} 
+		
+		catch (IOException e) {
+			
 			e.printStackTrace();
-		}
-	}
-	
-	public void handleAccountSelect(ActionEvent event){
-
-		String selectedAccount = accountSelect.getValue();
-		items.clear();
-		listView.getItems().clear();
-		if(selectedAccount.equals("bTCUSD")) {
-			
-			try {
-				
-				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
-				portfolio.loadTransactions("bTCUSD", "portfolioData/bTCUSD.csv" );
-			} 
-			
-			catch (IOException e1) {
-
-				e1.printStackTrace();
-			}
-			
-			Transaction recent = portfolio.recentTransaction(selectedAccount);
-			//update top label
-			topCryptoCurrencyLabel.setText("BitCoin USD");
-			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
-			//update balance labels
-			availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-			//for(Transaction transaction : portfolio.getAccountInfo().get("bTCEUR")){
-				
-				items.add(transaction.toString());
-			}		
-			
-			listView.getItems().addAll(items);
-		}else if(selectedAccount.equals("bTCEUR")) {
-			
-			items.clear();
-			listView.getItems().clear();
-			try {
-				
-				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
-				portfolio.loadTransactions("bTCEUR", "portfolioData/bTCEUR.csv" );
-				//System.out.println("read in bTCEUR");
-			} 
-			
-			catch (IOException e1) {
-
-				e1.printStackTrace();
-			}
-			//Transaction recent = new Transaction("", "", 0.0, 0.0, 0.0);
-			//System.out.println(recent.toString());
-			//Transaction recent = portfolio.recentTransaction(selectedAccount);
-			Transaction recent = portfolio.recentTransaction("bTCEUR");
-
-			System.out.println(recent.toString());
-			//update top label
-			topCryptoCurrencyLabel.setText("BitCoin EUR");
-			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
-			//update balance labels
-			
-			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-	
-				items.add(transaction.toString());
-			}		
-			
-			listView.getItems().addAll(items);
-			
-		}else if(selectedAccount.equals("eTHUSD")) {
-			
-			items.clear();
-			listView.getItems().clear();
-			try {
-				
-				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
-				portfolio.loadTransactions("eTHUSD", "portfolioData/eTHUSD.csv" );
-			} 
-			
-			catch (IOException e1) {
-
-				e1.printStackTrace();
-			}
-			Transaction recent = portfolio.recentTransaction(selectedAccount);
-			//update top label
-			topCryptoCurrencyLabel.setText("Ethereum USD");
-			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
-			//update balance labels
-			availableBalanceAmountLabel.setText("$" + Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-				
-				items.add(transaction.toString());
-			}		
-			
-			listView.getItems().addAll(items);
-		}else {
-			
-			items.clear();
-			listView.getItems().clear();
-			try {
-				
-				//portfolio.loadTransactions(userSelection, "portfolioData/" + userSelection + ".csv" );
-				portfolio.loadTransactions("eTHEUR", "portfolioData/eTHEUR.csv" );
-			} 
-			
-			catch (IOException e1) {
-
-				e1.printStackTrace();
-			}
-			Transaction recent = portfolio.recentTransaction(selectedAccount);
-			//update top label
-			topCryptoCurrencyLabel.setText("Ethereum EUR");
-			topCryptoCurrencyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
-			//update balance labels
-			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(selectedAccount)){
-				
-				items.add(transaction.toString());
-			}		
-			listView.getItems().addAll(items);
-		}
-	}
-	
-	public void handleTransactionChoice(ActionEvent event){
-		
-		//items.clear();
-		
-		listView.getItems().clear();
-		String selectedTransaction = coinTransactionChoice.getValue();
-		double selectedTransactionAmount = Double.parseDouble(transactionChoiceAmount.getText());
-		//System.out.println(selectedCpu);
-		if(selectedTransaction.equals("addCoin")) {	
-			//Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
-			Transaction recent = new Transaction("4/21/2019", "debit", 10, 385, 375);
-			//add or subtract to portfolio transaction
-			//portfolio.addCoin(accountSelect.getValue(), selectedTransactionAmount);
-			//last balance is now current balance and current balance is new balance
-			lastBalanceAmountLabel.setText(Double.toString(recent.getPreviousBalance()));
-			//lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			Transaction newTransaction = portfolio.recentTransaction(accountSelect.getValue());
-			//availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
-			availableBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-
-			//save it back to the file
-//			try {
-//				portfolio.save(accountSelect.getValue());
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get("eTHUSD")){
-			//for(Transaction transaction : portfolio.getAccountInfo().){
-
-				
-				items.add(transaction.toString());
-			}		
-			
-			items.add(recent.toString());
-			listView.getItems().addAll(items);
-		}else {
-			Transaction recent = portfolio.recentTransaction(accountSelect.getValue());
-			//add or subtract to portfolio transaction
-			portfolio.removeCoin(accountSelect.getValue(), selectedTransactionAmount);
-			//last balance is now current balance and current balance is new balance
-			lastBalanceAmountLabel.setText(Double.toString(recent.getCurrentBalance()));
-			Transaction newTransaction = portfolio.recentTransaction(accountSelect.getValue());
-			availableBalanceAmountLabel.setText(Double.toString(newTransaction.getCurrentBalance()));
-			//save it back to the file
-			try {
-				portfolio.save(accountSelect.getValue());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//update list view
-			for(Transaction transaction : portfolio.getAccountInfo().get(accountChoiceLabel)){
-				
-				items.add(transaction.toString());
-			}		
-			
-			listView.getItems().addAll(items);
 		}
 	}
 	
@@ -367,6 +455,20 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		errorLabel.setText(errorResponse);
 		errorLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 		errorLabel.setTextFill(Color.RED);
+	}
+	
+	@Override
+	public void handle(ActionEvent event) {
+		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+			System.out.println("Loading Personnel Scene");			
+			Main.stage.setScene(new Scene(root, 800, 800));
+			Main.stage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void homeHandle(ActionEvent event){
@@ -421,7 +523,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	//Brings scene to Chart.FXML. Controller = ChartController.java
 	public void aboutHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();

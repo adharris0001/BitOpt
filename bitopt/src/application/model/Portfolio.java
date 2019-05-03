@@ -23,9 +23,6 @@ public class Portfolio {
 	public Portfolio(String name) {
 		
 		this.name = name;
-		
-		//loading the keys to the map
-		//this.accountInfo = new HashMap<String, ArrayList<Transaction>>();
 		this.accountInfo = new HashMap<String, ArrayList<Transaction>>();
 		loadCoinName();
 	}
@@ -53,14 +50,9 @@ public class Portfolio {
 		
 		ArrayList<String> cryptoCurrencyNames = new ArrayList<String>();
 		cryptoCurrencyNames.addAll(Arrays.asList("bTCUSD", "bTCEUR", "eTHUSD", "eTHEUR"));
-//		cryptoCurrencyNames.add("bTCUSD");
-//		cryptoCurrencyNames.add("bTCEUR");
-//		cryptoCurrencyNames.add("eTHUSD");
-//		cryptoCurrencyNames.add("eTHEUR");
 		
 		for(String name : cryptoCurrencyNames) {
 			
-			System.out.println(name);
 			this.accountInfo.put(name, new ArrayList<Transaction>());
 		}
 	}
@@ -88,6 +80,11 @@ public class Portfolio {
 					}
 				}
 			}
+			
+//			for (Transaction t : this.accountInfo.get(userSelection)) {
+//			
+//			System.out.println(t.toString());
+//		}
 			
 			scan.close();
 		}
@@ -129,7 +126,7 @@ public class Portfolio {
 		ret += transaction.getTransactionType() + ",";
 		ret += Double.toString(transaction.getTransactionChange()) + ",";
 		ret += Double.toString(transaction.getCurrentBalance()) + ",";
-		ret += Double.toString(transaction.getPreviousBalance()) + ",";
+		ret += Double.toString(transaction.getPreviousBalance()) + "\n";
 		return ret;
 	}
 	
@@ -137,22 +134,27 @@ public class Portfolio {
 		
 		int length = 0;
 		Transaction transaction = new Transaction("", "", 0.0, 0.0, 0.0);
+		Transaction recent = recentTransaction(coinType);
+		
+		//weird...this is showing that I've already added the transaction
+		for (Transaction t : this.accountInfo.get(coinType)) {
+		
+		System.out.println(t.toString());
+		}
 		
 		//for a given key, performing a deposit (credit) of a certain coin amount, then adding the transaction to the map
-		
-		for(String name : this.accountInfo.keySet()) {
-			
-			if(name.equals(coinType)){
 				
-				length = this.accountInfo.get(name).size();
-				transaction = this.accountInfo.get(name).get(length - 1);
-				transaction.setPreviousBalance(transaction.getCurrentBalance());
-				transaction.setCurrentBalance(transaction.getCurrentBalance() + coin);
-				transaction.setTransactionChange(coin);
-				transaction.setTransactionType("credit");
-				transaction.setDate("4/21/2019");
-				this.accountInfo.get(name).add(transaction);
-			}
+		transaction.setPreviousBalance(recent.getCurrentBalance());
+		transaction.setCurrentBalance(recent.getCurrentBalance() + coin);
+		transaction.setTransactionChange(coin);
+		transaction.setTransactionType("credit");
+		transaction.setDate("4/21/2019");
+		this.accountInfo.get(coinType).add(transaction);
+		
+		//Somehow I'm getting twice the amount of transactions in a coin type
+		for (Transaction t : this.accountInfo.get(coinType)) {
+			
+			System.out.println(t.toString());
 		}
 	}
 	
@@ -160,6 +162,7 @@ public class Portfolio {
 		
 		int length = 0;
 		Transaction transaction = new Transaction("", "", 0.0, 0.0, 0.0);
+		Transaction recent = recentTransaction(coinType);
 		
 		//for a given key, performing a withdrawal (debit) of a certain coin amount, then adding the transaction to the map
 		
@@ -167,14 +170,12 @@ public class Portfolio {
 			
 			if(name.equals(coinType)){
 				
-				length = this.accountInfo.get(name).size();
-				transaction = this.accountInfo.get(name).get(length - 1);
-				
 				//can't withdraw more than what you have in the bank
 				//note: controller should take the "false" return and display an error message to the view
 				
-				if((transaction.getCurrentBalance() - coin) < 0) {
+				if((recent.getCurrentBalance() - coin) < 0) {
 					
+					System.out.println((recent.getCurrentBalance() - coin));
 					return false;
 				}
 				
@@ -182,8 +183,8 @@ public class Portfolio {
 				
 				else {
 					
-					transaction.setPreviousBalance(transaction.getCurrentBalance());
-					transaction.setCurrentBalance(transaction.getCurrentBalance() - coin);
+					transaction.setPreviousBalance(recent.getCurrentBalance());
+					transaction.setCurrentBalance(recent.getCurrentBalance() - coin);
 					transaction.setTransactionChange(coin);
 					transaction.setTransactionType("debit");
 					transaction.setDate("4/21/2019");
@@ -197,20 +198,8 @@ public class Portfolio {
 	
 	public Transaction recentTransaction(String coin) {
 		
-		int lastIndex = 0;
-		
-		for(String name : this.accountInfo.keySet()) {
-			
-			if(name.equals(coin)) {
-				
-				lastIndex = this.accountInfo.get(name).size() - 1;
-				System.out.println("This is the last index value" + lastIndex);
-				System.out.println(accountInfo.get(name).get(lastIndex).toString());
-				return this.accountInfo.get(name).get(lastIndex);	
-			}
-		}
-		
-		return null;
+		int lastIndex = this.accountInfo.get(coin).size() - 1;		
+		return this.accountInfo.get(coin).get(lastIndex);	
 	}
 
 	public String getName() {

@@ -17,7 +17,7 @@
             <Label fx:id="lastBalanceLabel" layoutX="102.0" layoutY="273.0" text="Last Balance" />
             <Label fx:id="availableBalanceAmountLabel" layoutX="480.0" layoutY="213.0" text="Label" />
             <Label fx:id="lastBalanceAmountLabel" layoutX="480.0" layoutY="284.0" text="Label" />
-            <Label layoutX="580.0" layoutY="155.0" />
+            <Label fx:id="errorLabel" layoutX="400.0" layoutY="155.0" />
             <Label layoutX="102.0" layoutY="370.0" text="Account" />
             <Label layoutX="102.0" layoutY="528.0" text="Transaction History" />
             <ComboBox fx:id="accountSelect" layoutX="480.0" layoutY="365.0" onAction="#handleAccountSelect" prefHeight="31.0" prefWidth="157.0" promptText="Select Account" />
