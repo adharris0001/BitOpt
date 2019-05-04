@@ -35,7 +35,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * 
+ * The Portfolio controller gives the user access to all of their account information
+ * A logout button and access to the other views are displayed at the top
+ * Balances are shown at the top of the view dedicated to Portfolio
+ * In the middle of the screen, the user is able to select their crypto currency as well as their desired action, deposit (addCoin) or withdraw (removeCoin)
+ * A list view at the bottom shows all transaction history pulled from a .csv file, with each file individually linked to their respective currencies
+ * Error messages are displayed for any case in which a user deviates from standard or expected input
  * @author Blake Powell vnh034
  * @author Anthony Harris xxg795
  *

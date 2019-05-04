@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * 
+ * The Portfolio class holds transaction data in an account based on its respective cryptocurrency
  * @author Blake Powell vnh034
  * @author Anthony Harris xxg795
  *
