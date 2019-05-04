@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * The Portfolio class holds transaction data in an account based on its respective cryptocurrency
+ * The Portfolio class holds transaction data in accounts based on respective cryptocurrencies
  * @author Blake Powell vnh034
  * @author Anthony Harris xxg795
  *
@@ -246,31 +246,31 @@ public class Portfolio {
 
 	/**
 	 * return the name
-	 * @return name
+	 * @return name - the String name that's stored in the class
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * change the name
-	 * @param name - new name
+	 * setting the name
+	 * @param name - the String name that's stored in the class
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * returns the account information
-	 * @return account information
+	 * returns the hashmap that's saved in the class
+	 * @return the hashmap
 	 */
 	public Map<String, ArrayList<Transaction>> getAccountInfo() {
 		return accountInfo;
 	}
 
 	/**
-	 * change the account information
-	 * @param accountInfo - new account information
+	 * setting the hashmap with the parameter
+	 * @param accountInfo - hashmap 
 	 */
 	public void setAccountInfo(Map<String, ArrayList<Transaction>> accountInfo) {
 		this.accountInfo = accountInfo;

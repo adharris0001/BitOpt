@@ -118,14 +118,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
     ObservableList<String> items = FXCollections.observableArrayList();
     
     Portfolio portfolio = new Portfolio("Cryptocurrency");
-    
-    int countSelects; 
-	
+    	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		countSelects = 1;
-		
+				
 		//Adding the proper color scheme of the scene to match other views
 		
 		backgroundDisplay();
@@ -151,11 +147,9 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	
 	/**
 	 * When an account is selected from the dropdown menu, the view is updated with values corresponding to that account
-	 * @param event 
+	 * @param event - when the account select combo box is initialized to a value by the user, this event is triggered
 	 */
 	public void handleAccountSelect(ActionEvent event){
-
-		countSelects++;
 		
 		//clearing the transaction choice amount text field for possible new entries
 		
@@ -170,7 +164,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	
 	/**
 	 * When choosing a transaction type, either addCoin or removeCoin, the respective method is called for the selected account
-	 * @param event
+	 * @param event - when the coin transaction choice combo box is initialized to a value by the user, this event is triggered
 	 */
 	public void handleTransactionChoice(ActionEvent event){
 		
@@ -301,6 +295,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	 */
 	public boolean errorCheck() {	
 		
+		//checking if the user selected an account and entered a valid amount
 		if(!(checkSelectionAndAmount())) {
 
 			return false;
@@ -308,24 +303,25 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		else {
 			
+			//true if user entered a double value for the transaction amount; false otherwise
 			return transactionChoiceAmountError();
 		}
 	}
 	
 	/**
-	 * This method checks for errors in account selection and unspecified transaction amounts
+	 * This method checks for errors in account selection and errors in transaction amount entries
 	 * @return boolean value based on the result of error checks when validating user input
 	 */
 	public boolean checkSelectionAndAmount() {
 		
-		//checks for user account selection
+		//checks if user chose an account selection
 		if(accountSelect.getSelectionModel().isEmpty()) {
 			
 			transactionChoiceAmountErrorNotification("select an account");
 			return false;
 		}
 		
-		//checks for transaction type chosen without an input for value
+		//checks to see if user entered something in the transaction amount field
 		if(transactionChoiceAmount.getText().equals("")) {
 			
 			transactionChoiceAmountErrorNotification("Blank transaction amount field");
@@ -345,6 +341,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	 */
 	public boolean transactionChoiceAmountError() {
 		
+		//if the user's entry is not a numeric value return false
 		if(!(isNumeric(transactionChoiceAmount.getText()))){
 			
 			transactionChoiceAmountErrorNotification("Enter a numerical value in the transaction amount field");
@@ -568,7 +565,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	 */
 	public void portfolioHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio4.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
@@ -578,7 +575,6 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
 	/**
 	 * Load to Chart view when Chart is pressed
 	 * @param event
@@ -595,7 +591,6 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
 	/**
 	 * Load to About Us view when About Us is pressed
 	 * @param event
