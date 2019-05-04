@@ -17,7 +17,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
+/**
+ * The Portfolio controller is the support for the aboutUs view
+ * The class handles intializing the background color and the title
+ * A logout button and access to the other views are displayed at the top
+ * @author Tommy Herz txl635
+ *
+ */
 public class AboutUsController implements EventHandler<ActionEvent>, Initializable {
 	
 	@FXML
@@ -39,7 +45,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 		label.setFont(Font.font("Cambria", 34));
 		label.setAlignment(Pos.CENTER);
 	}
-	
+	/**
+	 * Load to login view when logout button is pressed
+	 * @param event
+	 */
 	@Override
 	public void handle(ActionEvent event) {
 		try {
@@ -52,7 +61,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void homeHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
@@ -64,7 +76,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void systemHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
@@ -76,7 +91,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void portfolioHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio4.fxml"));
@@ -88,8 +106,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 			e.printStackTrace();
 		}
 	}
-	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void chartHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
@@ -101,8 +121,10 @@ public class AboutUsController implements EventHandler<ActionEvent>, Initializab
 			e.printStackTrace();
 		}
 	}
-	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void aboutHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));

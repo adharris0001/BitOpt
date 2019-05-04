@@ -19,19 +19,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-//Tommy Herz
+/**
+ * The Chart controller displays data from bitcoin.java in the form of a line chart
+ * A logout button and access to the other views are displayed at the top
+ * The chart loads when the view is loaded
+ * You can also check on the exact value from the past 48 hours for the data
+ * All data is from the loginController instance of bitcoin
+ * @author Tommy Herz txl635
+ */
 public class ChartController implements EventHandler<ActionEvent>, Initializable {
-	
-	/* javadoc notes:
-	I added comments to most functions and some comments on some blocks of code.
-	But heres the rundown:
-	-This view shows the local values from bitcoin and displays the on a linechart
-	-You can view what value is at a certain hour for bot eth and btc
-	-Also supports different currency values
-	-This class is the controller for Chart.fxml
-	-You can go to any other view using the menubar in this class.
-	-You can also log out from this class
-	*/
 	
 	@FXML
 	HBox hbox = new HBox();
@@ -54,6 +50,13 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	@FXML 
 	Label ethVal;
 	
+	//gets value from the static BitCoin instance from LoginController
+	//initialize ArrayList of doubles
+	ArrayList<Double> btceur = LoginController.newData.getBtceurPrices();
+	ArrayList<Double> btcusd = LoginController.newData.getBtcusdPrices();
+	ArrayList<Double> etheur = LoginController.newData.getEtheurPrices();
+	ArrayList<Double> ethusd = LoginController.newData.getEthusdPrices();
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//gray background
@@ -64,22 +67,16 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 		//Now generates chart from the get go
 		generateChart();
 	}
-	// BitCoin
-	BitCoin bitCoin = new BitCoin();
 	
-	//gets value from the static BitCoin instance from LoginController
-	ArrayList<Double> btceur = LoginController.newData.getBtceurPrices();
-	ArrayList<Double> btcusd = LoginController.newData.getBtcusdPrices();
-	ArrayList<Double> etheur = LoginController.newData.getEtheurPrices();
-	ArrayList<Double> ethusd = LoginController.newData.getEthusdPrices();
-	
-	
-	//Suppress warning is needed because eclipse is bad 
-	//Main method to generate LineChart
+	/**
+	 * This is called when the view is loaded
+	 * Generates a chart and displays it
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public void generateChart() {
 		
-		//title
+		//loads title
 		lineChart.setTitle("Bitcoin & Etherium values (last 48 hours)");
 	
 		//each time you generate the chart, you must clear the chart first
@@ -113,7 +110,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			lineChart.getData().addAll(series1,series2,series3,series4);
 			}
 	}
-	//used to set comboboxs
+	/**
+	 * sets the combo boxs values for user
+	 * @param Is called on start up
+	 */
 	public void comboBoxSet(){
 	        for (int i = 1 ; i <=48 ; i++) {
 	        	comboBox.getItems().add(Integer.toString(i));
@@ -121,7 +121,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 	        comboBoxC.getItems().add("USD");
 	        comboBoxC.getItems().add("EUR");
 	}
-	//called from "Check Value button" .  Gets combobox values and returns values from arraylists of bitcoin/etheruem
+	/**
+	 * changes label's value to match with current value of what
+	 * @param Is called when the check value button is pressed
+	 */
 	public void findValue() {
 		int i = Integer.parseInt(comboBox.getValue());
 		if (comboBoxC.getValue().contains("USD")) {
@@ -133,8 +136,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			ethVal.setText("€ "+Math.round(etheur.get(i)));
 		}
 	}
-
-	//Brings scene to System.fxml Controller = SystemController.java
+	/**
+	 * Load to System view when System setup is pressed
+	 * @param event
+	 */
 	public void systemHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
@@ -146,8 +151,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			e.printStackTrace();
 		}
 	}
-
-	//Brings scene to Portfolio.fxml Controller = PortfolioController.java
+	/**
+	 * Load to Portfolio view when Portfolio is pressed
+	 * @param event
+	 */
 	public void portfolioHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio4.fxml"));
@@ -159,8 +166,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			e.printStackTrace();
 		}
 	}
-	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * Load to Chart view when charts is pressed
+	 * @param event
+	 */
 	public void chartHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
@@ -172,8 +181,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			e.printStackTrace();
 		}
 	}
-	
-	//Brings scene to AboutUs.FXML. Controller = AboutUsController.java
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void aboutHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
@@ -185,8 +196,10 @@ public class ChartController implements EventHandler<ActionEvent>, Initializable
 			e.printStackTrace();
 		}
 	}
-
-	//logs user out
+	/**
+	 * Load to Login view when the logout button is pressed
+	 * @param event
+	 */
 	@Override
 	public void handle(ActionEvent event) {
 		try {
