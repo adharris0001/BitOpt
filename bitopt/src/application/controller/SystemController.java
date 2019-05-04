@@ -27,12 +27,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Controller class for the crypto-mining computer system setup view where
+ * the user can select the components that make up their computer and then
+ * optimizing the power consumption of that setup based on the percent difference
+ * of the current crypto market vs. the history of the market.
+ * 
+ * @author Conor Wallace (bhd445)
+ * UTSA CS 3443 - Lab 2
+ * Spring 2019
+ */
 public class SystemController implements EventHandler<ActionEvent>, Initializable{
 	private String systemGPU;
 	private String systemCPU;
 	
 	@FXML
 	HBox hbox = new HBox();
+	
+	@FXML
+	MenuBar menubar = new MenuBar();
 	
 	@FXML
 	AnchorPane panel = new AnchorPane();
@@ -86,6 +99,9 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	BarChart<String, Number> optimizedChart;
 	
 	@Override
+	/**
+	 * purpose - When the view is loaded up, this method initializes gui components.
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		panel.setStyle("-fx-background-color: #8c8c8c;");
@@ -99,6 +115,10 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	}
 
 	@Override
+	/**
+	 * 
+	 * @param event - The event in which the user clicks logout
+	 */
 	public void handle(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
@@ -111,6 +131,11 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 	
+	/**
+	 * Based on the item the user selects, appropriate gui components are loaded
+	 * 
+	 * @param event - The event in which the user selects a CPU
+	 */
 	public void cpuHandle(ActionEvent event) {
 		String selectedCpu = cpuComboBox.getValue();
 		System.out.println(selectedCpu);
@@ -169,6 +194,11 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 
+	/**
+	 * Based on the item the user selects, appropriate gui components are loaded
+	 * 
+	 * @param event - The event in which the user selects a GPU
+	 */
 	public void gpuHandle(ActionEvent event) {
 		String selectedGpu = gpuComboBox.getValue();
 		System.out.println(selectedGpu);
@@ -228,6 +258,12 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	}
 	
 	@SuppressWarnings("unchecked")
+	/**
+	 * Depending on the power of the components selected, the default power consumption
+	 * is selected (i.e. most powerful part = lowest default power consumption)
+	 * 
+	 * @param event - The event in which the user clicks Optimize
+	 */
 	public void optimizeHandle(ActionEvent event) {
 		double cpuPower = 0.0;
 		double gpuPower = 0.0;
@@ -267,6 +303,7 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		gtxPane.add(cpuTurbo, 1, 4);
 		gtxPane.add(cpuCache, 1, 5);
 		
+		//instantiate a chart to show optimization results.
 	    //Defining the axes               
 	    CategoryAxis xAxis = new CategoryAxis();    
 	    xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList("Original System Power", "Optimized System Power"))); 
@@ -277,6 +314,7 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	         
 	    System.out.println(LoginController.newData.getComputeCapability());
 	    
+	    //optimize power consumption
 	    double oldComputeCapability = LoginController.newData.getComputeCapability();
 	    LoginController.newData.optimize();
 	    double newComputeCapability = LoginController.newData.getComputeCapability();
@@ -295,19 +333,11 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 	    //Setting the data to bar chart
 	    optimizedChart.getData().addAll(series1, series2);
 	}
-	
-	public void homeHandle(ActionEvent event){
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
-			System.out.println("Loading Personnel Scene");			
-			Main.stage.setScene(new Scene(root, 800, 800));
-			Main.stage.show();
 
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	/**
+	 * 
+	 * @param event - The event in which the user clicks the System Setup menu button
+	 */
 	public void systemHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
@@ -320,9 +350,13 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 
+	/**
+	 * 
+	 * @param event - The event in which the user clicks the Portfolio menu button
+	 */
 	public void portfolioHandle(ActionEvent event){
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio4.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
 			System.out.println("Loading Personnel Scene");			
 			Main.stage.setScene(new Scene(root, 800, 800));
 			Main.stage.show();
@@ -332,7 +366,10 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * 
+	 * @param event - The event in which the user clicks the Charts menu button
+	 */
 	public void chartHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
@@ -345,7 +382,10 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 	
-	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * 
+	 * @param event - The event in which the user clicks the About Us menu button
+	 */
 	public void aboutHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
@@ -358,6 +398,7 @@ public class SystemController implements EventHandler<ActionEvent>, Initializabl
 		}
 	}
 	
+	//getters and setters
 	public String getSystemGPU() {
 		return systemGPU;
 	}

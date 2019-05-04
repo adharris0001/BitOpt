@@ -4,6 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class to select the current user and validate their user account. 
+ * 
+ * @author Conor Wallace (bhd445)
+ * UTSA CS 3443 - Lab 2
+ * Spring 2019
+ */
 public class User {
 	private String username;
 	
@@ -12,13 +19,19 @@ public class User {
 		this.username = username;
 	}
 	
-	public static User validate(String attemptName, String attemptPassword) throws IOException {
-		User user = null;
+	/**
+	 * Result - boolean value to check whether or not the requested account is valid
+	 * 
+	 * @param attemptName - user's attempted username
+	 * @param attemptPassword - user's attempted password
+	 */
+	public boolean validate(String attemptName, String attemptPassword) throws IOException {
+		boolean isValidUser = false;
 		try {
-			// open personnel file for reading
+			// open user file for reading
 			Scanner userScan = new Scanner( new File("userData/users.csv"));
 			
-			// read in, line by line, creating employees
+			// read in, line by line, checking user login credentials
 			while( userScan.hasNextLine() ) {
 				String line = userScan.nextLine();
 				String[] tokens = line.split(",");
@@ -28,13 +41,13 @@ public class User {
 				System.out.println(userName + " " + userPassword);
 				System.out.println(attemptName + " " + attemptPassword);
 				
+				//check to see if this account matches the requested account
 				if(attemptName.equals(userName) && attemptPassword.equals(userPassword)) {
-					user = new User(attemptName);
+					isValidUser = true;
 					System.out.println("Setting new user");
-					break;
 				}
 				else {
-					System.out.println("Username or Password is incorrect.");
+					System.out.println("Username or Password is Doesn't Match.");
 				}
 			}
 			// close the file!
@@ -43,9 +56,11 @@ public class User {
 			e.printStackTrace();
 		}
 		
-		return user;
+		//if a match occurred return true, otherwise return false
+		return isValidUser;
 	}
 
+	//getters and setters
 	public String getUsername() {
 		return username;
 	}

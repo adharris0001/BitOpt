@@ -2,6 +2,14 @@ package application.model;
 
 import java.util.ArrayList;
 
+/**
+ * This is a class that models the real world crypto-currency market and initializes
+ * a dataset based upon this model.
+ * 
+ * @author Conor Wallace (bhd445)
+ * UTSA CS 3443 - Lab 2
+ * Spring 2019
+ */
 public class BitCoin {
 	private double computeCapability;
 	private double currentBTCUSDPrice;
@@ -26,9 +34,15 @@ public class BitCoin {
 		this.etheurPrices = new ArrayList<Double>();
 	}
 	
+	/**
+	 * purpose - Models the real world dynamics of the crypto-currency market by
+	 * setting a range of values for both bitcoin and ethereum that represents the total range of
+	 * values of both markets of all time. Once these boundaries are set, a second set of boundaries are randomly
+	 * generated within the first boundary to represent the fluctuation of the market over time.
+	 */
 	public void generateData() {
 		//Generate BTCUSD Data
-		// define the range 
+		// define the total range for all time
 		int btcusd_upper_max = 5000; 
         int btcusd_upper_min = 4000;
         int btcusd_lower_max = 3000;
@@ -36,6 +50,7 @@ public class BitCoin {
         int btcusd_upper_range = btcusd_upper_max - btcusd_upper_min + 1;
         int btcusd_lower_range = btcusd_lower_max - btcusd_lower_min + 1;
         
+        //define the inner boundary for the current market
         int bitusd_max = (int)(Math.random() * btcusd_upper_range) + btcusd_upper_min;
         int bitusd_min = (int)(Math.random() * btcusd_lower_range) + btcusd_lower_min;
         int bitusd_range = bitusd_max - bitusd_min + 1;
@@ -52,7 +67,7 @@ public class BitCoin {
         this.currentBTCUSDPrice = this.btcusdPrices.get(this.btcusdPrices.size()-1);
         
         //Generate BITEUR Data
-		// define the range 
+        // define the total range for all time
         //Exchange rate from BTCUSD to BTCEUR is roughly 89%.
         double usd2eurRate = 0.89;
 		int btceur_upper_max = (int)(usd2eurRate * btcusd_upper_max); 
@@ -62,6 +77,7 @@ public class BitCoin {
         int btceur_upper_range = btceur_upper_max - btceur_upper_min + 1;
         int btceur_lower_range = btceur_lower_max - btceur_lower_min + 1;
         
+        //define the inner boundary for the current market
         int biteur_max = (int)(Math.random() * btceur_upper_range) + btceur_upper_min;
         int biteur_min = (int)(Math.random() * btceur_lower_range) + btceur_lower_min;
         int biteur_range = biteur_max - biteur_min + 1;
@@ -78,7 +94,7 @@ public class BitCoin {
         this.currentBTCEURPrice = this.btceurPrices.get(this.btceurPrices.size()-1);
         
 		//Generate ETHUSD Data
-		// define the range 
+        // define the total range for all time
 		int ethusd_upper_max = 500; 
         int ethusd_upper_min = 400;
         int ethusd_lower_max = 150;
@@ -86,6 +102,7 @@ public class BitCoin {
         int ethusd_upper_range = ethusd_upper_max - ethusd_upper_min + 1;
         int ethusd_lower_range = ethusd_lower_max - ethusd_lower_min + 1;
         
+        //define the inner boundary for the current market
         int ethusd_max = (int)(Math.random() * ethusd_upper_range) + ethusd_upper_min;
         int ethusd_min = (int)(Math.random() * ethusd_lower_range) + ethusd_lower_min;
         int ethusd_range = ethusd_max - ethusd_min + 1;
@@ -102,7 +119,7 @@ public class BitCoin {
         this.currentETHUSDPrice = this.ethusdPrices.get(this.ethusdPrices.size()-1);
         
         //Generate BITEUR Data
-		// define the range 
+        // define the total range for all time
         //Exchange rate from ETHUSD to ETHEUR is roughly 89%.
 		int etheur_upper_max = (int)(usd2eurRate * ethusd_upper_max); 
         int etheur_upper_min = (int)(usd2eurRate * ethusd_upper_min);
@@ -111,6 +128,7 @@ public class BitCoin {
         int etheur_upper_range = etheur_upper_max - etheur_upper_min + 1;
         int etheur_lower_range = etheur_lower_max - etheur_lower_min + 1;
         
+        //define the inner boundary for the current market
         int etheur_max = (int)(Math.random() * etheur_upper_range) + etheur_upper_min;
         int etheur_min = (int)(Math.random() * etheur_lower_range) + etheur_lower_min;
         int etheur_range = etheur_max - etheur_min + 1;
@@ -127,6 +145,11 @@ public class BitCoin {
         this.currentETHEURPrice = this.etheurPrices.get(this.etheurPrices.size()-1);
 	}
 
+	/**
+	 * purpose - Compute the total trend of the crypto-currency market by computing the percent
+	 * difference of each market (BTCUSD, BTCEUR, ETHUSD, ETHEUR) and then finding the average of the
+	 * four differences
+	 */
 	public void optimize() {
 		double btcusdSum = 0.0;
 		double btcusdAverage = 0.0;
@@ -142,6 +165,7 @@ public class BitCoin {
 		double etheurOptimized = 0.0;
 		int i = 0;
 		
+		//find the sum of each market
 		for(i = 0; i < this.btcusdPrices.size(); i++) {
 			btcusdSum += this.btcusdPrices.get(i);
 			btceurSum += this.btceurPrices.get(i);
@@ -149,23 +173,28 @@ public class BitCoin {
 			etheurSum += this.etheurPrices.get(i);
 		}
 		
+		//find the average each market 
 		btcusdAverage = (btcusdSum / this.btcusdPrices.size());
 		btceurAverage = (btceurSum / this.btceurPrices.size());
 		ethusdAverage = (ethusdSum / this.ethusdPrices.size());
 		etheurAverage = (etheurSum / this.etheurPrices.size());	
 		
+		//find the percent difference of each market
 		btcusdOptimized = ((btcusdAverage - this.btcusdPrices.get(i-1)) / ((btcusdAverage + this.btcusdPrices.get(i-1))/2)) * 100;
 		btceurOptimized = ((btceurAverage - this.btceurPrices.get(i-1)) / ((btceurAverage + this.btceurPrices.get(i-1))/2)) * 100;
 		ethusdOptimized = ((ethusdAverage - this.ethusdPrices.get(i-1)) / ((ethusdAverage + this.ethusdPrices.get(i-1))/2)) * 100;
 		etheurOptimized = ((etheurAverage - this.etheurPrices.get(i-1)) / ((etheurAverage + this.etheurPrices.get(i-1))/2)) * 100;
 		
+		//find the average of all four market differences
 		double systemOptimized = ((btcusdOptimized + btceurOptimized + ethusdOptimized + etheurOptimized) / 4);
 		
 		System.out.println(systemOptimized);
 		
+		//adjust the power consumption given the trend in the market
 		this.setComputeCapability(this.computeCapability + systemOptimized);
 	}
 	
+	//getters and setters
 	public double getComputeCapability() {
 		return computeCapability;
 	}
