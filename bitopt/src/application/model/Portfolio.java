@@ -1,7 +1,3 @@
-/**
-  * @author Anthony D. Harris xxg795
- *
- */
 package application.model;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Blake Powell vnh034
+ * @author Anthony Harris xxg795
+ *
+ */
 public class Portfolio {
 	
 	private String name;
@@ -20,6 +22,9 @@ public class Portfolio {
 	
 	private Map<String, ArrayList<Transaction>> accountInfo;
 	
+	/**
+	 * @param name - name is passed when the portfolio is created
+	 */
 	public Portfolio(String name) {
 		
 		this.name = name;
@@ -27,6 +32,9 @@ public class Portfolio {
 		loadCoinName();
 	}
 	
+	/**
+	 * @return String representation of portfolio
+	 */
 	public String toString() {
 		
 		String ret = "";
@@ -44,6 +52,9 @@ public class Portfolio {
 		return ret;
 	}
 	
+	/**
+	 * This method adds each currency to the portfolio account
+	 */
 	public void loadCoinName(){
 	
 		//We are only using four different currencies. Each one will be keys to the values in the map
@@ -57,6 +68,12 @@ public class Portfolio {
 		}
 	}
 	
+	/**
+	 * loadTransactions will pull all transaction history from the .csv file of the user selected currency account
+	 * @param userSelection -  A String value of the user's account selection
+	 * @param file - Name of the file which will populate with selected currency transaction history
+	 * @throws IOException - If the file passed is missing or inaccessible, an exception is thrown
+	 */
 	public void loadTransactions(String userSelection, String file) throws IOException {
 		
 		try {
@@ -90,6 +107,11 @@ public class Portfolio {
 		}
 	}
 
+	/**
+	 * This method saves all new transactions by appending them to the end of the file corresponding to the selected currency
+	 * @param coinType - The type of currency is passed in order to save new transaction data to it's individual .csv file 
+	 * @throws IOException - If the file passed is missing or inaccessible, an exception is thrown
+	 */
 	public void save(String coinType) throws IOException{
 		
 		try {
@@ -97,7 +119,7 @@ public class Portfolio {
 			FileWriter Writer = new FileWriter(new File("portfolioData/" + coinType + ".csv"), true);
 					
 			String line = "";
-			
+			//get the most recent transaction to have occured and add to the file
 			Transaction recent = recentTransaction(coinType);
 			line = transactionCSV(recent);
 			Writer.append(line);
@@ -109,6 +131,11 @@ public class Portfolio {
 		}
 	}
 	
+	/**
+	 * This method gets and formats all information from a recent transaction
+	 * @param transaction - the transaction which will be written to the .csv file
+	 * @return - String representation of a transaction
+	 */
 	public String transactionCSV(Transaction transaction) {
 		
 		String ret = "";
@@ -120,6 +147,12 @@ public class Portfolio {
 		return ret;
 	}
 	
+	/**
+	 * This method will add an amount from user input to their selected currency
+	 * @param coinType - the type of currency is passed so that the method will know which currency to add to
+	 * @param coin - the value which is to be added to the account
+	 * @throws IOException - If the file for the coin type passed is missing or inaccessible, an exception is thrown
+	 */
 	public void addCoin(String coinType, double coin) {
 		
 		int length = 0;
@@ -146,6 +179,13 @@ public class Portfolio {
 		}
 	}
 	
+	/**
+	 * This method subtracts an amount from user input out of the selected currency
+	 * @param coinType - the type of currency is passed so that the method will know which currency to subtract from
+	 * @param coin - the value which is to be subtracted from the account
+	 * @return will return true if withdrawal is successful and false if it would cause an error
+	 * @throws IOException - If the file for the coin type passed is missing or inaccessible, an exception is thrown
+	 */
 	public boolean removeCoin(String coinType, double coin) {
 		
 		int length = 0;
@@ -193,24 +233,45 @@ public class Portfolio {
 		return true;
 	}
 	
+	/**
+	 * This method returns the most recent transaction in order to display relevant account data to the user
+	 * @param coin - selected currency in the portfolio
+	 * @return the most recent transaction of the selected currency
+	 */
 	public Transaction recentTransaction(String coin) {
 		
 		int lastIndex = this.accountInfo.get(coin).size() - 1;		
 		return this.accountInfo.get(coin).get(lastIndex);	
 	}
 
+	/**
+	 * return the name
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * change the name
+	 * @param name - new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * returns the account information
+	 * @return account information
+	 */
 	public Map<String, ArrayList<Transaction>> getAccountInfo() {
 		return accountInfo;
 	}
 
+	/**
+	 * change the account information
+	 * @param accountInfo - new account information
+	 */
 	public void setAccountInfo(Map<String, ArrayList<Transaction>> accountInfo) {
 		this.accountInfo = accountInfo;
 	}

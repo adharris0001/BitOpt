@@ -35,7 +35,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * @author User
+ * 
+ * @author Blake Powell vnh034
+ * @author Anthony Harris xxg795
  *
  */
 public class PortfolioController implements EventHandler<ActionEvent>, Initializable{
@@ -142,6 +144,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		updateListView("bTCUSD");
 	}
 	
+	/**
+	 * When an account is selected from the dropdown menu, the view is updated with values corresponding to that account
+	 * @param event 
+	 */
 	public void handleAccountSelect(ActionEvent event){
 
 		countSelects++;
@@ -157,6 +163,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		accountSelectView(accountSelect.getValue());
 	}
 	
+	/**
+	 * When choosing a transaction type, either addCoin or removeCoin, the respective method is called for the selected account
+	 * @param event
+	 */
 	public void handleTransactionChoice(ActionEvent event){
 		
 		//clearing the items array list  
@@ -200,6 +210,9 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		coinTransactionChoice.setValue(null);
 	}
 	
+	/**
+	 * Set background color and text
+	 */
 	public void backgroundDisplay() {
 		
 		panel.setStyle("-fx-background-color: #8c8c8c;");
@@ -210,12 +223,19 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		label.setAlignment(Pos.CENTER);
 	}
 	
+	/**
+	 * Adding all options to the two dropdown boxes present in the portfolio view
+	 */
 	public void initializeDropDowns() {
 		
 		accountSelect.getItems().addAll("bTCUSD","bTCEUR","eTHUSD","eTHEUR");
 		coinTransactionChoice.getItems().addAll("addCoin","removeCoin");
 	}
 	
+	/**
+	 * This method calls other methods which will update the view for the selected account
+	 * @param selectedAccount - currently selected currency account
+	 */
 	public void accountSelectView(String selectedAccount) {
 		
 		//clearing the previous values from the items ArrayList and the listView
@@ -227,21 +247,30 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		Transaction recent = portfolio.recentTransaction(selectedAccount);
 			
-			//updating labels based on the user's account selection
+		//updating labels based on the user's account selection
 			
-			updateLabels(selectedAccount, recent);
+		updateLabels(selectedAccount, recent);
 				
-			//update the list view with transaction values based on the user's account selection
+		//update the list view with transaction values based on the user's account selection
 			
-			updateListView(selectedAccount);
+		updateListView(selectedAccount);
 	}
 	
+	/**
+	 * Clear transaction information from the list when a new account is selected
+	 */
 	public void clearViewItems() {
 		
 		items.clear();
 		listView.getItems().clear();
 	}
 	
+	/**
+	 * This method loads all transaction histories preemptively to their respective account views
+	 * @param selectedAccount - currently selected currency account
+	 * @return the most recent transaction in the selected account
+	 * @throws IOException - If the file passed is missing or inaccessible, an exception is thrown
+	 */
 	public Transaction getTransactions(String selectedAccount) {
 		
 		try {
@@ -261,6 +290,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		return recent;
 	}
 	
+	/**
+	 * This method will check for general error, and otherwise will call a more specific error check with suitable error messages
+	 * @return boolean value based on the result of error checks when validating user input
+	 */
 	public boolean errorCheck() {	
 		
 		if(!(checkSelectionAndAmount())) {
@@ -274,14 +307,20 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
+	/**
+	 * This method checks for errors in account selection and unspecified transaction amounts
+	 * @return boolean value based on the result of error checks when validating user input
+	 */
 	public boolean checkSelectionAndAmount() {
 		
+		//checks for user account selection
 		if(accountSelect.getSelectionModel().isEmpty()) {
 			
 			transactionChoiceAmountErrorNotification("select an account");
 			return false;
 		}
 		
+		//checks for transaction type chosen without an input for value
 		if(transactionChoiceAmount.getText().equals("")) {
 			
 			transactionChoiceAmountErrorNotification("Blank transaction amount field");
@@ -294,6 +333,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
+	/**
+	 * This method is ensuring values used in an amount to deposit or withdraw from an account are valid input
+	 * >>	i.e. text rather than numerical values or values that would put an account in the negative 
+	 * @return boolean value based on the result of error checks when validating user input
+	 */
 	public boolean transactionChoiceAmountError() {
 		
 		if(!(isNumeric(transactionChoiceAmount.getText()))){
@@ -302,6 +346,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			return false;
 		}
 		
+		//won't allow negative or zero value transactions
 		if((Double.parseDouble(transactionChoiceAmount.getText()) <= 0)){
 			
 			transactionChoiceAmountErrorNotification("Enter a value greater than 0");
@@ -314,14 +359,25 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
+	/**
+	 * Sets the error message for the user when invalid input is given to the application
+	 * @param message - the error that is passed from prior checks to be displayed
+	 */
 	public void transactionChoiceAmountErrorNotification(String message) {
 		
 		errorLabelMessage(message);
 		coinTransactionChoice.setValue(null);
 	}
 	
+	/**
+	 * This method is checking for numeric input by the user
+	 * @param transactionAmount - the user input for amount to be deposited or withdrawn
+	 * @return boolean value based on the result of error checks when validating user input
+	 * @throws NumberFormatException - exception is thrown when value passed cannot be converted from a string into a numerical value
+	 */
 	public boolean isNumeric(String transactionAmount) {
 		
+		//if amount given is unable to be converted to type Double, false is returned to transactionChoiceAmountError and an error is displayed
 		try {
 			
 			double selectedTransactionAmount = Double.parseDouble(transactionAmount);
@@ -335,6 +391,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		return true;
 	}
 	
+	/**
+	 * This method is called when a deposit or withdrawal is made by the addCoin or removeCoin methods respectively
+	 * >>	it allows the application to update all relevant information such as balance and listed transaction history
+	 * @param selectedAccount - currently selected currency account
+	 */
 	public void coinTransaction(String selectedAccount) {
 				
 		//getting most recent add or remove coin transaction
@@ -351,6 +412,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		updateListView(selectedAccount);
 	}
 	
+	/**
+	 * Update all labels with relevant information such as balance and selected currency
+	 * @param selectedAccount - currently selected currency account
+	 * @param recent - most recent transaction for the selected currency
+	 */
 	public void updateLabels(String selectedAccount, Transaction recent) {
 		
 		//update top label
@@ -391,6 +457,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		lastBalanceAmountLabel.setText("$" + Double.toString(recent.getPreviousBalance()));
 	}
 	
+	/**
+	 * Updates list view of transaction history for the current account
+	 * @param selectedAccount - currently selected currency account
+	 */
 	public void updateListView(String selectedAccount) {
 		
 		clearViewItems();
@@ -399,6 +469,7 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		
 		int length = portfolio.getAccountInfo().get(selectedAccount).size() - 1;
 		
+		//populate list from end of transaction history to beginning in order to show most recent transactions at the top 
 		for(int i = length; i >= 0; i--) {
 			
 			items.add(transactions.get(i).toString());
@@ -407,6 +478,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		listView.getItems().addAll(items);	
 	}
 	
+	/**
+	 * Save changes made in transactions to the corresponding .csv file
+	 * @param selectedAccount - currently selected currency account
+	 * @throws IOException - If the file passed is missing or inaccessible, an exception is thrown
+	 */
 	public void saveUpdatedFile(String selectedAccount) {
 		
 		try {
@@ -420,6 +496,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
+	/**
+	 * Initializes and displays an error message to the user based on failed checks
+	 * @param message - error to be displayed to the user
+	 */
 	public void errorLabelMessage(String message) {
 		
 		String errorResponse = message;
@@ -429,6 +509,9 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	}
 	
 	@Override
+	/**
+	 * Return to Login view when logout button is pressed
+	 */
 	public void handle(ActionEvent event) {
 		
 		try {
@@ -442,6 +525,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 		}
 	}
 	
+	/**
+	 * Load to Home view when Home is pressed
+	 * @param event
+	 */
 	public void homeHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Home.fxml"));
@@ -453,7 +540,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Load to System view when System is pressed
+	 * @param event
+	 */
 	public void systemHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/System.fxml"));
@@ -465,7 +556,11 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Load to Portfolio view when Portfolio is pressed
+	 * @param event
+	 */
 	public void portfolioHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Portfolio.fxml"));
@@ -479,6 +574,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	}
 	
 	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * Load to Chart view when Chart is pressed
+	 * @param event
+	 */
 	public void chartHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Chart.fxml"));
@@ -492,6 +591,10 @@ public class PortfolioController implements EventHandler<ActionEvent>, Initializ
 	}
 	
 	//Brings scene to Chart.FXML. Controller = ChartController.java
+	/**
+	 * Load to About Us view when About Us is pressed
+	 * @param event
+	 */
 	public void aboutHandle(ActionEvent event){
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/AboutUs.fxml"));
