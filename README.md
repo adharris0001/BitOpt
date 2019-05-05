@@ -52,19 +52,26 @@ Portfolio3.fxml and portfolio4.fxml are redundant copies of each other just in c
 **Using the Login and Sign Up views**
 
 If the user does not have an account, they can select the Sign Up button which will take them to a view where they can enter a new set of login credentials.
+
 Once the user has signed up, they can enter their login credentials and the app attempts to map the login to a known user account.
 If successful, the About Us view is loaded.
+
 Both Login and Sign Up controllers have error checking that won’t allow a user to input null values.
 Using the System Setup view
+
 The user is able to select the two processing units of their respective crypto-currency mining computer (both CPU and GPU) by selecting from the dropdown menus.
+
 GUI components including images of the CPU and GPU as well as spec sheets for both, are loaded up depending on the components selected.
 The user may select the Optimize button which computes the total trend of the market by calculating the percent difference of the current market value verses the historical market value. This percentage is what is used to define the suggested compute power to be consumed at every login.
 
 **Chart View**
 
 On load up, the line chart should display the data from the past 48 hours.
+
 To see a value at a certain hour, click on the combo box labeled “Hour” and select the hour you want to see.
+
 Then click on the combo box labeled “Currency” and select the currency you want to see.
+
 Click the “Check value” button to see the value at the “Hour” and with “Currency” currency.
 
 **Portfolio View**
@@ -72,10 +79,15 @@ Click the “Check value” button to see the value at the “Hour” and with �
 **Portfolio General info**
 
 The user will see:
+
 The name of the currency 
+
 Current and last balances
+
 Drop downs to choose a cryptocurrency account and transaction choice (add/remove coin)
+
 A text field to input the amount to be transacted
+
 A view on the bottom to show recent transactions
 
 **Initial portfolio view**
@@ -85,9 +97,13 @@ When the user initially enters the portfolio view in the app, the app is default
 **Using the Portfolio portion of the app**
 
 Each currency will have the elements stated in “General info”
+
 For proper operation, the user must enter/choose in order:
+
 Either the desired account selection from the drop down and a transaction amount
+
 Then, choose a transaction type from the drop down
+
 If the proper operation is not followed, a red error label in the top right of the GUI will display
 
 
