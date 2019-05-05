@@ -1,13 +1,14 @@
-##Team BitOpt Readme
+Team BitOpt Readme
 
-#Team Members
+Team Members
+
 Anthony Harris
 Connor Wallace
 Tommy Herz
 Blake Powell
 Pablo Perez
 
-#Pitch & Description
+Pitch & Description
 
 Pitch
 
@@ -17,10 +18,10 @@ Description
 
 BitOpt will read the past monthly average value of the selected cryptocurrency, the updated value on the hour, and will calculate the deviation between both values. Using this deviation, your mining system’s compute capacity can be optimized to the suggested percentage.
 
-#Known Issues
+Known Issues
 
 (if applicable)
 
-#Demo Information
+Demo Information
 (login info??) (how to run the app - hopefully this is Main.java)
 
