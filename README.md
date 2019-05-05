@@ -2,11 +2,11 @@
 
 **Team Members**
 
-Anthony Harris
-Connor Wallace
-Tommy Herz
-Blake Powell
-Pablo Perez
+-Anthony Harris
+-Connor Wallace
+-Tommy Herz
+-Blake Powell
+-Pablo Perez
 
 **Pitch & Description**
 
