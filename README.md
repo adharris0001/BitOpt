@@ -1,4 +1,4 @@
-**Team BitOpt Readme
+**Team BitOpt Readme**
 
 Team Members
 
