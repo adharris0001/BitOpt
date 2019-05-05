@@ -20,6 +20,14 @@ BitOpt will read the past monthly average value of the selected cryptocurrency, 
 
 **Known Issues**
 
+**Chart View**
+
+The scene loads twice and lags a bit when loading up
+
+**Login and SignUp Views**
+
+When switching between views with a menubar and views without a menubar (as in switching from About Us to Login via the Logout button), a NullPointerException is thrown for unknown reasons. This, however, does not seem to hinder the performance of the rest of the app.
+
 **Portfolio View**
 
 Formatting of the list view isn’t perfect, some displayed values are not aligned with other values that are displayed
@@ -27,18 +35,25 @@ Formatting of the list view isn’t perfect, some displayed values are not align
 Even if the user chooses a Euro value of currency, labels and text will still show “$.” Please disregard that symbol when using Euro values.
 
 Eclipse throws some errors and they are displayed in red font in the Eclipse console. But, the app still works the way that it should. Please disregard the following errors:
+
 Eclipse generates seemingly harmless errors when performing an add or remove coin transaction
+
 Eclipse generates seemingly harmless errors when the user does not select an account and/or has a transaction amount error
 
 **Double transaction in Portfolio View**
 
 Add and remove coin operations in the app will result in duplicate transaction of the same amount and type when:
+
 After the view is first initialized in the app, the user selects a currency, the user enters a desired transaction amount, and the user performs an add or remove operation
+
 Any time the user selects alternative consecutive transactions – i.e. the user selects “add coin”, then “remove coin”, then “add coin” again…etc
 
 The BitOpt developers are spinning this bug to be an incentive feature called the **“Decisive Cryptocurrency Proliferation Program”**
+
 We want our users to help support the expansion of cryptocurrency by investing in cryptocurrency. So, the developers will match an equivalent value of the first transaction they make every time they enter the portfolio view of the app. For example, if the user adds $10 in bitcoin, we will match it. 
+
 However, the opposite can occur. If the user decides to take away from the cryptocurrency market in their first transaction they make every time he/she enters the portfolio view, then the developers will charge the user a processing fee equivalent to the amount they want to withdraw.
+
 Finally, the developers want to promote decisive thinking in the cryptocurrency market. Therefore, if the user makes alternate and consecutive add and remove transactions, the developers will also charge the user a processing fee equivalent to the amount they want to withdraw.
 
 **Portfolio view unstable opening**
