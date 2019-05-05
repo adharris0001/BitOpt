@@ -50,9 +50,9 @@ Demo Information
 
 Chart View
 
-On load up, the line chart should display the data from the past 48 hours
+On load up, the line chart should display the data from the past 48 hours.
 To see a value at a certain hour, click on the combo box labeled “Hour” and select the hour you want to see.
-Then click on the combo box labeled “Currency” and select the currency you want to see
+Then click on the combo box labeled “Currency” and select the currency you want to see.
 Click the “Check value” button to see the value at the “Hour” and with “Currency” currency.
 
 Portfolio View
