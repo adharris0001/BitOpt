@@ -3,7 +3,7 @@
 **Team Members**
 
 *Anthony Harris
-*Connor Wallace
+*Conor Wallace
 *Tommy Herz
 *Blake Powell
 *Pablo Perez
